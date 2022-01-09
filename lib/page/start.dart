@@ -87,7 +87,7 @@ class _StartUpPageState extends State<StartUpPage> {
     );
   }
 
-  _buildLanguage(String image, String text, String label){
+  Widget _buildLanguage(String image, String text, String label){
     return GestureDetector(
       onTap: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LoginPage())),
       child: Column(

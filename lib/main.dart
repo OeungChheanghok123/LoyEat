@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:loy_eat/page/start.dart';
+import 'package:loy_eat/page/instruction_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,13 +10,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Loy Eat driver delivery app',
-      theme: ThemeData(
-        primaryColor: Colors.blue
-      ),
-      home: const InstructionPage(),
+      home: InstructionPage(),
     );
   }
 }
