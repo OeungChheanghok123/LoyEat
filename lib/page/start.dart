@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:loy_eat/controller/color.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:loy_eat/page/login.dart';
 
 class InstructionPage extends StatelessWidget {
   const InstructionPage({Key? key}) : super(key: key);
@@ -55,33 +56,63 @@ class _StartUpPageState extends State<StartUpPage> {
   }
 
   Widget get _selectLanguage{
-    return Column(
-      children: <Widget>[
-        const Text("ជ្រើសរើសភាសា"),
-        Row(
-          children: [
-            language('assets/image/cambodia_flag.svg', 'ខ្មែរ', 'Cambodia Flag Logo'),
-            language('assets/image/english_logo.png', 'English', 'English Flag Logo'),
-          ],
-        )
-      ],
+    return Container(
+      width: 150,
+      color: Colors.transparent,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          const Padding(
+            padding: EdgeInsets.only(bottom: 10.0),
+            child: Text("ជ្រើសរើសភាសា",
+              style: TextStyle(
+                fontSize: 16,
+                color: Color.fromRGBO(255, 255, 255, 1),
+              ),
+            ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              language('assets/image/cambodia_flag.svg', 'ខ្មែរ', 'Cambodia Flag Logo'),
+              language('assets/image/uk_flag.svg', 'English', 'United kingdom Flag Logo'),
+            ],
+          )
+        ],
+      ),
     );
   }
 
   language(String image, String text, String label){
-    return Column(
-      children: [
-        Container(
-          width: 55,
-          height: 35,
-          color: Colors.transparent,
-          child: SvgPicture.asset(image,
-            placeholderBuilder: (context) => const CircularProgressIndicator(),
-            semanticsLabel: label,
+    return GestureDetector(
+      onTap: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LoginPage())),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Container(
+            width: 55,
+            height: 35,
+            color: Colors.transparent,
+            child: SvgPicture.asset(image,
+              fit: BoxFit.cover,
+              placeholderBuilder: (context) => const CircularProgressIndicator(),
+              semanticsLabel: label,
+            ),
           ),
-        ),
-        Text(text),
-      ],
+          Padding(
+            padding: const EdgeInsets.only(top: 5.0),
+            child: Text(text,
+              style: const TextStyle(
+                fontSize: 14,
+                color: Color.fromRGBO(255, 255, 255, 1),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
