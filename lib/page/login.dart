@@ -23,6 +23,7 @@ class LoginPage extends StatelessWidget {
                   'assets/image/loy_eat_logo.svg',
                   placeholderBuilder: (context) => const CircularProgressIndicator(),
                   semanticsLabel: 'LoyEat Logo',
+                  alignment: Alignment.center,
                 ),
               ),
               Positioned(
@@ -58,7 +59,7 @@ class LoginPage extends StatelessWidget {
       ),
       child: Text(text,
         style: const TextStyle(
-          fontSize: 20,
+          fontSize: 18,
           fontWeight: FontWeight.w400,
           color: Colors.white,
         ),

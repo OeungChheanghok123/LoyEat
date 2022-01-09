@@ -42,6 +42,7 @@ class _StartUpPageState extends State<StartUpPage> {
             'assets/image/loy_eat_logo.svg',
             placeholderBuilder: (context) => const CircularProgressIndicator(),
             semanticsLabel: 'LoyEat Logo',
+            alignment: Alignment.center,
           ),
         ),
         Positioned(
@@ -59,6 +60,7 @@ class _StartUpPageState extends State<StartUpPage> {
     return Container(
       width: 150,
       color: Colors.transparent,
+      alignment: Alignment.center,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -76,8 +78,8 @@ class _StartUpPageState extends State<StartUpPage> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              language('assets/image/cambodia_flag.svg', 'ខ្មែរ', 'Cambodia Flag Logo'),
-              language('assets/image/uk_flag.svg', 'English', 'United kingdom Flag Logo'),
+              _buildLanguage('assets/image/cambodia_flag.svg', 'ខ្មែរ', 'Cambodia Flag Logo'),
+              _buildLanguage('assets/image/uk_flag.svg', 'English', 'United kingdom Flag Logo'),
             ],
           )
         ],
@@ -85,7 +87,7 @@ class _StartUpPageState extends State<StartUpPage> {
     );
   }
 
-  language(String image, String text, String label){
+  _buildLanguage(String image, String text, String label){
     return GestureDetector(
       onTap: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LoginPage())),
       child: Column(
