@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:loy_eat/controller/color.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:loy_eat/page/login.dart';
+import 'package:loy_eat/page/login_page.dart';
 
 class InstructionPage extends StatelessWidget {
   const InstructionPage({Key? key}) : super(key: key);
