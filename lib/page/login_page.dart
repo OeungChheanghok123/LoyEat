@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:loy_eat/controller/color.dart';
+import 'package:loy_eat/page/become_driver.dart';
 import 'package:loy_eat/page/instruction_page.dart';
 
 class LoginPage extends StatelessWidget {
@@ -35,7 +36,7 @@ class LoginPage extends StatelessWidget {
                     child: _buildButton("Log In", rabbit),
                   ),
                   InkWell(
-                    onTap: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const InstructionPage())),
+                    onTap: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const BecomeDriver())),
                     child: _buildButton("Become a Driver?", carrot),
                   ),
                 ],
