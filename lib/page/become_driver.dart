@@ -420,5 +420,4 @@ class _BecomeDriverState extends State<BecomeDriver> {
       ),
     );
   }
-
 }
