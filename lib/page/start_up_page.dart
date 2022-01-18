@@ -50,7 +50,7 @@ class StartUpPage extends StatelessWidget {
             padding: EdgeInsets.only(bottom: 10.0),
             child: Text("ជ្រើសរើសភាសា",
               style: TextStyle(
-                fontSize: 16,
+                fontSize: 14,
                 color: white,
               ),
             ),
@@ -86,7 +86,7 @@ class StartUpPage extends StatelessWidget {
           padding: const EdgeInsets.only(top: 5.0),
           child: Text(text,
             style: const TextStyle(
-              fontSize: 14,
+              fontSize: 12,
               color: white,
             ),
           ),

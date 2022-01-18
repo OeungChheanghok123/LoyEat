@@ -14,10 +14,18 @@ class _BecomeDriverWidgetState extends State<BecomeDriverWidget> {
   String? _dropDownDistrictValue;
   String? _dropDownCommuneValue;
 
+  bool isSelectedBike = true;
+  bool isSelectedMotor = false;
+  bool isSelectedRickshaw = false;
+
+  bool isSelectMorning = true;
+  bool isSelectAfternoon = false;
+  bool isSelectEvening = false;
+
   static const menuDistrictItems = <String>[
     'Chamkar Mon', 'Daun Penh', 'Prampir Makara', 'Tuol Kouk', 'Dangkao',
     'Mean Chey', 'Russey Keo', 'Sen Sok', 'Pou Senchey', 'Chroy Changvar', 'Prek Pnov',
-    'Chbar Ampov', 'Boeng Keng Kang', 'Kamboul',
+    'Chbar Ampov', 'Boeng Keng Kang', 'Kamboul'
   ];
 
   static const menuCommuneItems = <String>[
@@ -46,6 +54,7 @@ class _BecomeDriverWidgetState extends State<BecomeDriverWidget> {
       scrollDirection: Axis.vertical,
       child: Container(
         margin: const EdgeInsets.all(15.0),
+        width: MediaQuery.of(context).size.width,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -69,7 +78,7 @@ class _BecomeDriverWidgetState extends State<BecomeDriverWidget> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget> [
         _buildStringTitle('Name:'),
-        _buildTextField(TextInputType.text, TextAlign.start, const EdgeInsets.only(left: 10), ''),
+        _buildTextField(const EdgeInsets.symmetric(vertical: 10), TextInputType.text, TextAlign.start, const EdgeInsets.only(left: 10), ''),
         const SizedBox(height: 10),
       ],
     );
@@ -97,9 +106,9 @@ class _BecomeDriverWidgetState extends State<BecomeDriverWidget> {
           children: [
             _buildStringTitle('Birth Year:'),
             SizedBox(
-              width: 100,
+              width: 80,
               height: 50,
-              child: _buildTextField(TextInputType.datetime, TextAlign.center, EdgeInsets.zero, '2000'),
+              child: _buildTextField(const EdgeInsets.symmetric(vertical: 10), TextInputType.datetime, TextAlign.center, EdgeInsets.zero, '2000'),
             ),
             const SizedBox(height: 10),
           ],
@@ -112,7 +121,7 @@ class _BecomeDriverWidgetState extends State<BecomeDriverWidget> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         _buildStringTitle('Mobile Phone:'),
-        _buildTextField(TextInputType.phone, TextAlign.start, const EdgeInsets.only(left: 10), 'Enter your phone number'),
+        _buildTextField(const EdgeInsets.symmetric(vertical: 10), TextInputType.phone, TextAlign.start, const EdgeInsets.only(left: 10), 'Enter your phone number'),
         const SizedBox(height: 10),
       ],
     );
@@ -125,9 +134,39 @@ class _BecomeDriverWidgetState extends State<BecomeDriverWidget> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            _buildVehicleButton('assets/image/bike_icon.png', 'Bike'),
-            _buildVehicleButton('assets/image/motor_icon.png', 'Motor'),
-            _buildVehicleButton('assets/image/rickshaw_icon.png', 'Rickshaw'),
+            InkWell(
+              splashColor: Colors.transparent,
+              onTap: (){
+                setState(() {
+                  isSelectedBike = true;
+                  isSelectedMotor = false;
+                  isSelectedRickshaw = false;
+                });
+              },
+              child: _buildVehicleButton('assets/image/bike_icon.png', 'Bike', isSelectedBike ? rabbit : platinum, isSelectedBike ? rabbit : white),
+            ),
+            InkWell(
+              splashColor: Colors.transparent,
+              onTap: (){
+                setState(() {
+                  isSelectedBike = false;
+                  isSelectedMotor = true;
+                  isSelectedRickshaw = false;
+                });
+              },
+              child: _buildVehicleButton('assets/image/motor_icon.png', 'Motor', isSelectedMotor ? rabbit : platinum, isSelectedMotor ? rabbit : white),
+            ),
+            InkWell(
+              splashColor: Colors.transparent,
+              onTap: (){
+                setState(() {
+                  isSelectedBike = false;
+                  isSelectedMotor = false;
+                  isSelectedRickshaw = true;
+                });
+              },
+              child: _buildVehicleButton('assets/image/rickshaw_icon.png', 'Rickshaw', isSelectedRickshaw ? rabbit : platinum, isSelectedRickshaw ? rabbit : white),
+            ),
           ],
         ),
         const SizedBox(height: 10),
@@ -139,12 +178,15 @@ class _BecomeDriverWidgetState extends State<BecomeDriverWidget> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         _buildStringTitle('Where do you live?'),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            _buildDistricts('Districts'),
-            _buildCommunes('Communes'),
-          ],
+        SizedBox(
+          width: MediaQuery.of(context).size.width,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              _buildDistricts('Districts'),
+              _buildCommunes('Communes'),
+            ],
+          ),
         ),
         const SizedBox(height: 10),
       ],
@@ -158,9 +200,39 @@ class _BecomeDriverWidgetState extends State<BecomeDriverWidget> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            _buildTime('Morning'),
-            _buildTime('Afternoon'),
-            _buildTime('Evening'),
+            InkWell(
+              splashColor: Colors.transparent,
+              onTap: (){
+                setState(() {
+                  isSelectMorning = true;
+                  isSelectAfternoon = false;
+                  isSelectEvening = false;
+                });
+              },
+              child: _buildTime('Morning', isSelectMorning ? rabbit : white),
+            ),
+            InkWell(
+              splashColor: Colors.transparent,
+              onTap: (){
+                setState(() {
+                  isSelectMorning = false;
+                  isSelectAfternoon = true;
+                  isSelectEvening = false;
+                });
+              },
+              child: _buildTime('Afternoon', isSelectAfternoon ? rabbit : white),
+            ),
+            InkWell(
+              splashColor: Colors.transparent,
+              onTap: (){
+                setState(() {
+                  isSelectMorning = false;
+                  isSelectAfternoon = false;
+                  isSelectEvening = true;
+                });
+              },
+              child: _buildTime('Evening', isSelectEvening ? rabbit : white),
+            ),
           ],
         ),
         const SizedBox(height: 10),
@@ -173,7 +245,7 @@ class _BecomeDriverWidgetState extends State<BecomeDriverWidget> {
       children: <Widget>[
         _buildStringTitle('Take your ID card photo'),
         _buildTakePhoto(),
-        const SizedBox(height: 10),
+        const SizedBox(height: 5),
       ],
     );
   }
@@ -183,27 +255,10 @@ class _BecomeDriverWidgetState extends State<BecomeDriverWidget> {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
         _buildStringTitle('Referral code if have:'),
-        const SizedBox(
-          width: 150,
-          height: 35,
-          child: TextField(
-            keyboardType: TextInputType.phone,
-            autocorrect: false,
-            textAlign: TextAlign.center,
-            textAlignVertical: TextAlignVertical.center,
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.normal,
-              color: black,
-            ),
-            decoration: InputDecoration(
-              hintText: 'Enter code',
-              contentPadding: EdgeInsets.zero,
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(5.0)),
-              ),
-            ),
-          ),
+        SizedBox(
+          width: 100,
+          height: 30,
+          child: _buildTextField(EdgeInsets.zero, TextInputType.number, TextAlign.center, EdgeInsets.zero, 'Enter Code'),
         ),
       ],
     );
@@ -211,7 +266,7 @@ class _BecomeDriverWidgetState extends State<BecomeDriverWidget> {
   Widget get _buildSubmitButton{
     return Column(
       children: [
-        const SizedBox(height: 10),
+        const SizedBox(height: 5),
         _buildButtonSubmit('Submit'),
       ],
     );
@@ -219,26 +274,30 @@ class _BecomeDriverWidgetState extends State<BecomeDriverWidget> {
 
   Widget _buildStringTitle(String text) => Text(text,
     style: const TextStyle(
-      fontSize: 18,
+      fontSize: 14,
       fontWeight: FontWeight.bold,
       color: black,
     ),
   );
-  Widget _buildTextField(TextInputType inputType, TextAlign textAlign, EdgeInsets contentPadding, String hintText) => Container(
-    margin: const EdgeInsets.symmetric(vertical: 10),
+  Widget _buildTextField(EdgeInsets margin,TextInputType inputType, TextAlign textAlign, EdgeInsets contentPadding, String hintText) => Container(
+    margin: margin,
+    height: 40,
     child: TextField(
       keyboardType: inputType,
       textAlign: textAlign,
       autocorrect: false,
       textAlignVertical: TextAlignVertical.center,
       style: const TextStyle(
-        fontSize: 16,
+        fontSize: 12,
         fontWeight: FontWeight.normal,
         color: black,
       ),
       decoration: InputDecoration(
         contentPadding: contentPadding,
         hintText: hintText,
+        hintStyle: const TextStyle(
+          fontSize: 12,
+        ),
         border: const OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(5.0)),
         ),
@@ -272,7 +331,7 @@ class _BecomeDriverWidgetState extends State<BecomeDriverWidget> {
             padding: const EdgeInsets.only(left: 8.0),
             child: Text(text,
               style: const TextStyle(
-                fontSize: 16,
+                fontSize: 12,
                 color: black,
               ),
             ),
@@ -281,48 +340,46 @@ class _BecomeDriverWidgetState extends State<BecomeDriverWidget> {
       ),
     ),
   );
-  Widget _buildVehicleButton(String image, String text) => InkWell(
-    child: Container(
-      margin: const EdgeInsets.symmetric(vertical: 10),
-      child: Row(
-        children: [
-          Container(
-            width: 35,
-            height: 35,
+  Widget _buildVehicleButton(String image, String text, Color borderColor, Color color) => Container(
+    margin: const EdgeInsets.symmetric(vertical:10, horizontal: 5),
+    child: Row (
+      children: [
+        Container(
+          width: 35,
+          height: 35,
+          decoration: BoxDecoration(
+            color: white,
+            borderRadius: BorderRadius.circular(100),
+            border: Border.all(width: 2.5, color: borderColor),
+          ),
+          child: Container(
+            margin: const EdgeInsets.all(2.0),
             decoration: BoxDecoration(
-              color: white,
-              borderRadius: BorderRadius.circular(50),
-              border: Border.all(width: 2.0, color: rabbit),
+              color: color,
+              borderRadius: BorderRadius.circular(100),
             ),
             child: Container(
-              margin: const EdgeInsets.all(2.0),
+              margin: const EdgeInsets.all(3.5),
               decoration: BoxDecoration(
-                color: rabbit,
-                borderRadius: BorderRadius.circular(50),
-              ),
-              child: Container(
-                margin: const EdgeInsets.all(3.5),
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage(image),
-                    fit: BoxFit.fill,
-                  ),
+                image: DecorationImage(
+                  image: AssetImage(image),
+                  fit: BoxFit.fill,
                 ),
               ),
             ),
           ),
-          Container(
-            padding: const EdgeInsets.only(left: 8.0),
-            child: Text(text,
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.normal,
-                color: black,
-              ),
+        ),
+        Container(
+          padding: const EdgeInsets.only(left: 8.0),
+          child: Text(text,
+            style: const TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.normal,
+              color: black,
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     ),
   );
   Widget _buildDistricts(String text) => Container(
@@ -335,11 +392,22 @@ class _BecomeDriverWidgetState extends State<BecomeDriverWidget> {
     ),
     child: DropdownButton<String>(
       value: _dropDownDistrictValue,
-      hint: Text(text),
+      hint: Text(text,
+        style: const TextStyle(
+          fontSize: 12,
+        ),
+      ),
       items: _dropDownDistrictMenuItems,
       borderRadius: BorderRadius.circular(5),
       isDense: true,
       dropdownColor: white,
+      itemHeight: null,
+      menuMaxHeight: 300,
+      style: const TextStyle(
+        fontSize: 12,
+        color: black,
+        fontWeight: FontWeight.normal,
+      ),
       alignment: Alignment.center,
       underline: Container(),
       onChanged: (String? newValue){
@@ -359,11 +427,22 @@ class _BecomeDriverWidgetState extends State<BecomeDriverWidget> {
     ),
     child: DropdownButton<String>(
       value: _dropDownCommuneValue,
-      hint: Text(text),
+      hint: Text(text,
+        style: const TextStyle(
+          fontSize: 12,
+        ),
+      ),
       items: _dropDownCommuneMenuItems,
       borderRadius: BorderRadius.circular(5),
       isDense: true,
       dropdownColor: white,
+      itemHeight: null,
+      menuMaxHeight: 300,
+      style: const TextStyle(
+        fontSize: 12,
+        color: black,
+        fontWeight: FontWeight.normal,
+      ),
       alignment: Alignment.center,
       underline: Container(),
       onChanged: (String? newValue){
@@ -373,21 +452,19 @@ class _BecomeDriverWidgetState extends State<BecomeDriverWidget> {
       },
     ),
   );
-  Widget _buildTime(String text) => InkWell(
-    child: Container(
-      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 15.0),
-      margin: const EdgeInsets.symmetric(vertical: 10),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: black, width: 1),
-        color: rabbit,
-      ),
-      child: Text(text,
-        style: const TextStyle(
-          color: black,
-          fontWeight: FontWeight.normal,
-          fontSize: 16,
-        ),
+  Widget _buildTime(String text, Color color) => Container(
+    padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 15.0),
+    margin: const EdgeInsets.symmetric(vertical: 10),
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(10),
+      border: Border.all(color: silver, width: 1),
+      color: color,
+    ),
+    child: Text(text,
+      style: const TextStyle(
+        color: black,
+        fontWeight: FontWeight.normal,
+        fontSize: 12,
       ),
     ),
   );
@@ -411,7 +488,7 @@ class _BecomeDriverWidgetState extends State<BecomeDriverWidget> {
   Widget _buildButtonSubmit(String text) => InkWell(
     child: Container(
         padding: const EdgeInsets.symmetric(vertical: 15),
-        margin: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
+        margin: const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
         decoration: BoxDecoration(
           color: rabbit,
           borderRadius: BorderRadius.circular(10),
@@ -419,7 +496,7 @@ class _BecomeDriverWidgetState extends State<BecomeDriverWidget> {
         child: Center(
           child: Text(text,
             style: const TextStyle(
-              fontSize: 18,
+              fontSize: 14,
               fontWeight: FontWeight.bold,
               color: white,
             ),
