@@ -54,7 +54,6 @@ class _BecomeDriverWidgetState extends State<BecomeDriverWidget> {
       scrollDirection: Axis.vertical,
       child: Container(
         margin: const EdgeInsets.all(15.0),
-        width: MediaQuery.of(context).size.width,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -485,23 +484,21 @@ class _BecomeDriverWidgetState extends State<BecomeDriverWidget> {
       ),
     ),
   );
-  Widget _buildButtonSubmit(String text) => InkWell(
-    child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 15),
-        margin: const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
-        decoration: BoxDecoration(
-          color: rabbit,
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: Center(
-          child: Text(text,
-            style: const TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.bold,
-              color: white,
-            ),
+  Widget _buildButtonSubmit(String text) => Container(
+      padding: const EdgeInsets.symmetric(vertical: 15),
+      margin: const EdgeInsets.fromLTRB(25, 15, 25, 0),
+      decoration: BoxDecoration(
+        color: rabbit,
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Center(
+        child: Text(text,
+          style: const TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.bold,
+            color: white,
           ),
-        )
-    ),
+        ),
+      )
   );
 }

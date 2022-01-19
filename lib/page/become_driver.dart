@@ -12,11 +12,11 @@ class BecomeDriver extends StatefulWidget {
 class _BecomeDriverState extends State<BecomeDriver> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      extendBody: true,
-      backgroundColor: white,
-      body: SafeArea(
-        child: BecomeDriverWidget(),
+    return const SafeArea(
+      child: Scaffold(
+        extendBody: true,
+        backgroundColor: white,
+        body: BecomeDriverWidget(),
       ),
     );
   }
