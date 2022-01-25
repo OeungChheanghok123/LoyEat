@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:loy_eat/controller/color.dart';
+import 'package:loy_eat/page/notification_page.dart';
 import 'package:loy_eat/widget/home_page_widget.dart';
 
 class HomePage extends StatefulWidget {
@@ -12,6 +13,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
 
   bool isToggleClick = false;
+  int notificationCounter = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -64,10 +66,10 @@ class _HomePageState extends State<HomePage> {
                 icon: Icon(iconButton,
                   size: 35,
                 ),
-                onPressed: () {},
+                onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const NotificationPage())),
               ),
             ),
-            Positioned(
+            notificationCounter > 0 ? Positioned(
               top: 18,
               right: 15,
               child: Container(
@@ -76,15 +78,15 @@ class _HomePageState extends State<HomePage> {
                   borderRadius: BorderRadius.circular(5),
                 ),
                 padding: const EdgeInsets.all(2.0),
-                child: const Text('1',
-                  style: TextStyle(
+                child:  Text('$notificationCounter',
+                  style: const TextStyle(
                     color: white,
                     fontSize: 8,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
-            ),
+            ) : Container(),
           ],
         ),
       ],
