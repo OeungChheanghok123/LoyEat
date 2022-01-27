@@ -13,7 +13,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
 
   bool isToggleClick = false;
-  int notificationCounter = 0;
+  int notificationCounter = 1;
 
   @override
   Widget build(BuildContext context) {
