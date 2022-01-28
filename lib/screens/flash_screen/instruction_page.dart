@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:loy_eat/controller/color.dart';
-import 'package:loy_eat/page/account_page.dart';
-import 'package:loy_eat/page/home_page.dart';
-import 'package:loy_eat/page/order_page.dart';
-import 'package:loy_eat/page/report_page.dart';
+import 'package:loy_eat/widgets/layout_widget/color.dart';
+import 'package:loy_eat/screens/main_screen/account_page.dart';
+import 'package:loy_eat/screens/main_screen/home_page.dart';
+import 'package:loy_eat/screens/main_screen/order_page.dart';
+import 'package:loy_eat/screens/main_screen/report_page.dart';
 
 class InstructionPage extends StatefulWidget {
   const InstructionPage({Key? key}) : super(key: key);

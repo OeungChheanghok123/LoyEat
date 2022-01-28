@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:loy_eat/controller/color.dart';
-import 'package:loy_eat/page/notification_page.dart';
-import 'package:loy_eat/widget/home_page_widget.dart';
+import 'package:loy_eat/widgets/layout_widget/color.dart';
+import 'package:loy_eat/screens/other_screen/home_screen/notification_page.dart';
+import 'package:loy_eat/widgets/page_widget/home_page_widget.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);

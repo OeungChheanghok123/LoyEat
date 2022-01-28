@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:loy_eat/controller/color.dart';
+import 'package:loy_eat/widgets/layout_widget/color.dart';
 
 class BecomeDriverWidget extends StatefulWidget {
   const BecomeDriverWidget({Key? key}) : super(key: key);

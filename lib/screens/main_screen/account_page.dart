@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:loy_eat/controller/color.dart';
-import 'package:loy_eat/widget/account_page_widget.dart';
+import 'package:loy_eat/widgets/layout_widget/color.dart';
+import 'package:loy_eat/widgets/page_widget/account_page_widget.dart';
 
 class AccountPage extends StatelessWidget {
   const AccountPage({Key? key}) : super(key: key);

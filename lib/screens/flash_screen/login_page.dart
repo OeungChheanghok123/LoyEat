@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:loy_eat/controller/color.dart';
-import 'package:loy_eat/page/become_driver.dart';
-import 'package:loy_eat/page/instruction_page.dart';
+import 'package:loy_eat/widgets/layout_widget/color.dart';
+import 'package:loy_eat/screens/flash_screen/become_driver_page.dart';
+import 'package:loy_eat/screens/flash_screen/instruction_page.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({Key? key}) : super(key: key);

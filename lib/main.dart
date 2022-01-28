@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:loy_eat/controller/color.dart';
-import 'package:loy_eat/page/start_up_page.dart';
+import 'package:loy_eat/widgets/layout_widget/color.dart';
+import 'package:loy_eat/screens/flash_screen/start_up_page.dart';
 
 void main() => runApp(const MyApp());
 

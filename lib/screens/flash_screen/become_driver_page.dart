@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:loy_eat/controller/color.dart';
-import 'package:loy_eat/widget/become_driver_widget.dart';
+import 'package:loy_eat/widgets/layout_widget/color.dart';
+import 'package:loy_eat/widgets/page_widget/become_driver_widget.dart';
 
 class BecomeDriver extends StatefulWidget {
   const BecomeDriver({Key? key}) : super(key: key);

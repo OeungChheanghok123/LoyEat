@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:loy_eat/controller/color.dart';
+import 'package:loy_eat/widgets/layout_widget/color.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:loy_eat/page/login_page.dart';
+import 'package:loy_eat/screens/flash_screen/login_page.dart';
 
 class StartUpPage extends StatelessWidget {
   const StartUpPage({Key? key}) : super(key: key);

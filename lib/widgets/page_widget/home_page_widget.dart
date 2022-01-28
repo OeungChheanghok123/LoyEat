@@ -1,6 +1,6 @@
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
-import 'package:loy_eat/controller/color.dart';
+import 'package:loy_eat/widgets/layout_widget/color.dart';
 
 class HomePageWidget extends StatefulWidget {
   const HomePageWidget({Key? key}) : super(key: key);
