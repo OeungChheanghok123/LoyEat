@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:loy_eat/models/location.dart';
 import 'package:loy_eat/widgets/layout_widget/color.dart';
+import 'package:loy_eat/widgets/layout_widget/text_widget.dart';
 
-class BecomeDriverWidget extends StatefulWidget {
-  const BecomeDriverWidget({Key? key}) : super(key: key);
+class BecomeDriverPageWidget extends StatefulWidget {
+  const BecomeDriverPageWidget({Key? key}) : super(key: key);
 
   @override
-  _BecomeDriverWidgetState createState() => _BecomeDriverWidgetState();
+  _BecomeDriverPageWidgetState createState() => _BecomeDriverPageWidgetState();
 }
 
-class _BecomeDriverWidgetState extends State<BecomeDriverWidget> {
+class _BecomeDriverPageWidgetState extends State<BecomeDriverPageWidget> {
 
   int _radioValue = 0;
   String? _dropDownDistrictValue;
@@ -22,22 +24,11 @@ class _BecomeDriverWidgetState extends State<BecomeDriverWidget> {
   bool isSelectAfternoon = false;
   bool isSelectEvening = false;
 
-  static const menuDistrictItems = <String>[
-    'Chamkar Mon', 'Daun Penh', 'Prampir Makara', 'Tuol Kouk', 'Dangkao',
-    'Mean Chey', 'Russey Keo', 'Sen Sok', 'Pou Senchey', 'Chroy Changvar', 'Prek Pnov',
-    'Chbar Ampov', 'Boeng Keng Kang', 'Kamboul'
-  ];
-
-  static const menuCommuneItems = <String>[
-    'Chamkar Mon', 'Daun Penh', 'Prampir Makara', 'Tuol Kouk', 'Dangkao',
-    'Mean Chey', 'Russey Keo', 'Sen Sok', 'Pou Senchey', 'Chroy Changvar', 'Prek Pnov',
-    'Chbar Ampov', 'Boeng Keng Kang', 'Kamboul',
-  ];
-
   final List<DropdownMenuItem<String>> _dropDownDistrictMenuItems = menuDistrictItems.map((String value) =>
       DropdownMenuItem<String>(
         value: value,
-        child: Text(value),
+        child: TextWidget(text: value),
+        // child: Text(value),
       ),
   ).toList();
 

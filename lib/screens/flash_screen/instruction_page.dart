@@ -33,7 +33,6 @@ class _InstructionPageState extends State<InstructionPage> {
 
   @override
   Widget build(BuildContext context) {
-
     assert(_listTabPages.length == _pageBottonNavBarItems.length);
 
     return Scaffold(
