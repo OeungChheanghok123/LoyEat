@@ -6,6 +6,8 @@ class ButtonWidget extends StatelessWidget {
   final double height;
   final Color color;
   final VoidCallback onPressed;
+  final BorderSide borderSide;
+  final double borderRadius;
   final Widget child;
 
   const ButtonWidget({
@@ -13,6 +15,8 @@ class ButtonWidget extends StatelessWidget {
     this.width = 150,
     this.height = 50,
     this.color = rabbit,
+    this.borderSide = BorderSide.none,
+    this.borderRadius = 10,
     required this.onPressed,
     required this.child,
   }) : super(key: key);
@@ -30,7 +34,8 @@ class ButtonWidget extends StatelessWidget {
           backgroundColor: MaterialStateProperty.all(color),
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10.0),
+              borderRadius: BorderRadius.circular(borderRadius),
+              side: borderSide,
             ),
           ),
         ),

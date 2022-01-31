@@ -11,3 +11,4 @@ const Color text = Color.fromRGBO(112, 112, 112, 1);
 const Color black = Color.fromRGBO(0, 0, 0, 1);
 const Color rabbit = Color.fromRGBO(0, 180, 213, 1);
 const Color succeed = Color.fromRGBO(0, 171, 18, 1);
+const Color none = Colors.transparent;

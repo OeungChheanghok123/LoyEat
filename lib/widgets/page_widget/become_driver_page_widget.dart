@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:loy_eat/models/location.dart';
+import 'package:loy_eat/screens/flash_screen/instruction_page.dart';
+import 'package:loy_eat/widgets/layout_widget/button_widget.dart';
 import 'package:loy_eat/widgets/layout_widget/color.dart';
+import 'package:loy_eat/widgets/layout_widget/icon_button_widget.dart';
+import 'package:loy_eat/widgets/layout_widget/icon_widget.dart';
+import 'package:loy_eat/widgets/layout_widget/radio_button_widget.dart';
+import 'package:loy_eat/widgets/layout_widget/space.dart';
+import 'package:loy_eat/widgets/layout_widget/text_field_widget.dart';
 import 'package:loy_eat/widgets/layout_widget/text_widget.dart';
 
 class BecomeDriverPageWidget extends StatefulWidget {
@@ -16,11 +23,11 @@ class _BecomeDriverPageWidgetState extends State<BecomeDriverPageWidget> {
   String? _dropDownDistrictValue;
   String? _dropDownCommuneValue;
 
-  bool isSelectedBike = true;
+  bool isSelectedBike = false;
   bool isSelectedMotor = false;
   bool isSelectedRickshaw = false;
 
-  bool isSelectMorning = true;
+  bool isSelectMorning = false;
   bool isSelectAfternoon = false;
   bool isSelectEvening = false;
 
@@ -48,12 +55,13 @@ class _BecomeDriverPageWidgetState extends State<BecomeDriverPageWidget> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
+            const Space(height: 20),
             _buildDriverName,
             _buildDriverGenderAndBirthYear,
             _buildDriverMobilePhone,
             _buildDriverVehicle,
             _buildDriverLive,
-            _buildDriverTime,
+            _buildDriverSchedule,
             _buildDriverIDCard,
             _buildDriverReferral,
             _buildSubmitButton,
@@ -66,41 +74,60 @@ class _BecomeDriverPageWidgetState extends State<BecomeDriverPageWidget> {
   Widget get _buildDriverName{
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget> [
-        _buildStringTitle('Name:'),
-        _buildTextField(const EdgeInsets.symmetric(vertical: 10), TextInputType.text, TextAlign.start, const EdgeInsets.only(left: 10), ''),
-        const SizedBox(height: 10),
+      children: const <Widget> [
+        TextWidget(
+          isTitle: true,
+          text: 'Name:',
+        ),
+        TextFieldWidget(
+          height: 35,
+          inputType: TextInputType.text,
+        ),
+        Space(height: 10),
       ],
     );
   }
   Widget get _buildDriverGenderAndBirthYear{
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildStringTitle('Sex:'),
+            const TextWidget(
+              isTitle: true,
+              text: 'Sex:',
+            ),
             Row(
               children: [
                 _buildRadioButton(0, 'Male'),
-                const SizedBox(width: 10),
+                const Space(width: 10),
                 _buildRadioButton(1, 'Female'),
               ],
             ),
-            const SizedBox(height: 10),
+            const Space(height: 10),
           ],
         ),
         Column(
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            _buildStringTitle('Birth Year:'),
-            SizedBox(
-              width: 80,
-              height: 50,
-              child: _buildTextField(const EdgeInsets.symmetric(vertical: 10), TextInputType.datetime, TextAlign.center, EdgeInsets.zero, '2000'),
+          children: const [
+            TextWidget(
+              isTitle: true,
+              text: 'Birth Year:',
             ),
-            const SizedBox(height: 10),
+            SizedBox(
+              width: 100,
+              height: 45,
+              child: TextFieldWidget(
+                inputType: TextInputType.datetime,
+                height: 50,
+                hintText: '2000',
+                textAlign: TextAlign.center,
+                contentPaddingLeft: 0,
+              ),
+            ),
+            Space(height: 10),
           ],
         ),
       ],
@@ -109,10 +136,18 @@ class _BecomeDriverPageWidgetState extends State<BecomeDriverPageWidget> {
   Widget get _buildDriverMobilePhone{
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        _buildStringTitle('Mobile Phone:'),
-        _buildTextField(const EdgeInsets.symmetric(vertical: 10), TextInputType.phone, TextAlign.start, const EdgeInsets.only(left: 10), 'Enter your phone number'),
-        const SizedBox(height: 10),
+      children: const <Widget>[
+        TextWidget(
+          isTitle: true,
+          text: 'Mobile Phone:',
+        ),
+        TextFieldWidget(
+          height: 35,
+          inputType: TextInputType.number,
+          hintText: 'Enter your phone number',
+          hintColor: silver,
+        ),
+        Space(height: 10),
       ],
     );
   }
@@ -120,46 +155,20 @@ class _BecomeDriverPageWidgetState extends State<BecomeDriverPageWidget> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        _buildStringTitle('Choose your vehicle:'),
+        const TextWidget(
+          isTitle: true,
+          text: 'Choose your vehicle:',
+        ),
+        const Space(height: 5),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            InkWell(
-              splashColor: Colors.transparent,
-              onTap: (){
-                setState(() {
-                  isSelectedBike = true;
-                  isSelectedMotor = false;
-                  isSelectedRickshaw = false;
-                });
-              },
-              child: _buildVehicleButton('assets/image/bike_icon.png', 'Bike', isSelectedBike ? rabbit : platinum, isSelectedBike ? rabbit : white),
-            ),
-            InkWell(
-              splashColor: Colors.transparent,
-              onTap: (){
-                setState(() {
-                  isSelectedBike = false;
-                  isSelectedMotor = true;
-                  isSelectedRickshaw = false;
-                });
-              },
-              child: _buildVehicleButton('assets/image/motor_icon.png', 'Motor', isSelectedMotor ? rabbit : platinum, isSelectedMotor ? rabbit : white),
-            ),
-            InkWell(
-              splashColor: Colors.transparent,
-              onTap: (){
-                setState(() {
-                  isSelectedBike = false;
-                  isSelectedMotor = false;
-                  isSelectedRickshaw = true;
-                });
-              },
-              child: _buildVehicleButton('assets/image/rickshaw_icon.png', 'Rickshaw', isSelectedRickshaw ? rabbit : platinum, isSelectedRickshaw ? rabbit : white),
-            ),
+            _buildVehicleButton(0, 'assets/image/bike_icon.png', 'Bike', isSelectedBike ? rabbit : platinum, isSelectedBike ? rabbit : white),
+            _buildVehicleButton(1, 'assets/image/motor_icon.png', 'Motor', isSelectedMotor ? rabbit : platinum, isSelectedMotor ? rabbit : white),
+            _buildVehicleButton(2, 'assets/image/rickshaw_icon.png', 'Rickshaw', isSelectedRickshaw ? rabbit : platinum, isSelectedRickshaw ? rabbit : white),
           ],
         ),
-        const SizedBox(height: 10),
+        const Space(height: 10),
       ],
     );
   }
@@ -167,7 +176,10 @@ class _BecomeDriverPageWidgetState extends State<BecomeDriverPageWidget> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        _buildStringTitle('Where do you live?'),
+        const TextWidget(
+          isTitle: true,
+          text: 'Where do you live?',
+        ),
         SizedBox(
           width: MediaQuery.of(context).size.width,
           child: Row(
@@ -182,60 +194,49 @@ class _BecomeDriverPageWidgetState extends State<BecomeDriverPageWidget> {
       ],
     );
   }
-  Widget get _buildDriverTime{
+  Widget get _buildDriverSchedule{
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        _buildStringTitle('Your time available:'),
+        const TextWidget(
+          isTitle: true,
+          text: 'Your time available:',
+        ),
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            InkWell(
-              splashColor: Colors.transparent,
-              onTap: (){
-                setState(() {
-                  isSelectMorning = true;
-                  isSelectAfternoon = false;
-                  isSelectEvening = false;
-                });
-              },
-              child: _buildTime('Morning', isSelectMorning ? rabbit : white),
-            ),
-            InkWell(
-              splashColor: Colors.transparent,
-              onTap: (){
-                setState(() {
-                  isSelectMorning = false;
-                  isSelectAfternoon = true;
-                  isSelectEvening = false;
-                });
-              },
-              child: _buildTime('Afternoon', isSelectAfternoon ? rabbit : white),
-            ),
-            InkWell(
-              splashColor: Colors.transparent,
-              onTap: (){
-                setState(() {
-                  isSelectMorning = false;
-                  isSelectAfternoon = false;
-                  isSelectEvening = true;
-                });
-              },
-              child: _buildTime('Evening', isSelectEvening ? rabbit : white),
-            ),
+            _buildButtonSchedule(0, 'Morning', isSelectMorning ? white : black, isSelectMorning ? rabbit : white, isSelectMorning ? none : silver),
+            _buildButtonSchedule(1, 'Afternoon', isSelectAfternoon ? white : black, isSelectAfternoon ? rabbit : white, isSelectAfternoon ? none : silver),
+            _buildButtonSchedule(2, 'Evening', isSelectEvening ? white : black, isSelectEvening ? rabbit : white, isSelectEvening ? none : silver),
           ],
         ),
-        const SizedBox(height: 10),
+        const Space(height: 10),
       ],
     );
   }
   Widget get _buildDriverIDCard{
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        _buildStringTitle('Take your ID card photo'),
-        _buildTakePhoto(),
-        const SizedBox(height: 5),
+      mainAxisAlignment: MainAxisAlignment.start,
+      children:  <Widget>[
+        const TextWidget(
+          isTitle: true,
+          text: 'Take your ID card photo:',
+        ),
+        Container(
+          margin: const EdgeInsets.symmetric(vertical: 10),
+          child: ButtonWidget(
+            width: MediaQuery.of(context).size.width,
+            height: 100,
+            onPressed: () => print('take photo is clicked'),
+            color: platinum,
+            child: const IconWidget(
+              icon: Icons.photo_camera,
+              size: 48,
+            ),
+          ),
+        ),
+        const Space(),
       ],
     );
   }
@@ -243,135 +244,138 @@ class _BecomeDriverPageWidgetState extends State<BecomeDriverPageWidget> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
-      children: <Widget>[
-        _buildStringTitle('Referral code if have:'),
+      children: const <Widget>[
+        TextWidget(
+          isTitle: true,
+          text: 'Referral code if have:',
+        ),
         SizedBox(
-          width: 100,
-          height: 30,
-          child: _buildTextField(EdgeInsets.zero, TextInputType.number, TextAlign.center, EdgeInsets.zero, 'Enter Code'),
+          width: 120,
+          height: 50,
+          child: TextFieldWidget(
+            height: 50,
+            inputType: TextInputType.number,
+            textAlign: TextAlign.center,
+            contentPaddingLeft: 0,
+            hintText: 'Enter code',
+          ),
         ),
       ],
     );
   }
   Widget get _buildSubmitButton{
-    return Column(
-      children: [
-        const SizedBox(height: 5),
-        _buildButtonSubmit('Submit'),
-      ],
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      margin: const EdgeInsets.fromLTRB(25, 15, 25, 0),
+      child:  ButtonWidget(
+        height: 40,
+        onPressed: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const InstructionPage())),
+        borderRadius: 25,
+        child: const TextWidget(
+          isTitle: true,
+          text: 'Submit',
+          color: white,
+        ),
+      ),
     );
   }
 
-  Widget _buildStringTitle(String text) => Text(text,
-    style: const TextStyle(
-      fontSize: 14,
-      fontWeight: FontWeight.bold,
-      color: black,
-    ),
-  );
-  Widget _buildTextField(EdgeInsets margin,TextInputType inputType, TextAlign textAlign, EdgeInsets contentPadding, String hintText) => Container(
-    margin: margin,
-    height: 40,
-    child: TextField(
-      keyboardType: inputType,
-      textAlign: textAlign,
-      autocorrect: false,
-      textAlignVertical: TextAlignVertical.center,
-      style: const TextStyle(
-        fontSize: 12,
-        fontWeight: FontWeight.normal,
-        color: black,
-      ),
-      decoration: InputDecoration(
-        contentPadding: contentPadding,
-        hintText: hintText,
-        hintStyle: const TextStyle(
-          fontSize: 12,
-        ),
-        border: const OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(5.0)),
-        ),
-      ),
-    ),
-  );
   Widget _buildRadioButton(int index, String text) => InkWell(
-    onTap: () => setState((){ _radioValue = index; }),
+    splashColor: none,
+    onTap: () => setState(() => _radioValue = index ),
     child: Container(
       margin: const EdgeInsets.fromLTRB(0, 10, 10, 10),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Radio<int>(
-            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-            visualDensity: const VisualDensity(
-              horizontal: VisualDensity.minimumDensity,
-              vertical: VisualDensity.minimumDensity,
-            ),
-            activeColor: rabbit,
+          RadioButtonWidget(
+            index: index,
             groupValue: _radioValue,
-            value: index,
-            onChanged: (newValue){
-              if (newValue != null){
-                setState(() {
-                  _radioValue = newValue;
-                });
-              }
-            },
+            onChanged: (newValue) => setState(() => _radioValue = newValue ),
+          ),
+          const Space(width: 8),
+          TextWidget(text: text),
+        ],
+      ),
+    ),
+  );
+  Widget _buildVehicleButton(int index, String image, String text, Color borderColor, Color backgroundColor) => InkWell(
+    splashColor: none,
+    onTap: (){
+      setState(() {
+        if (index == 0) {
+          isSelectedBike = true;
+          isSelectedMotor = false;
+          isSelectedRickshaw = false;
+        }
+        if (index == 1) {
+          isSelectedMotor = true;
+          isSelectedBike = false;
+          isSelectedRickshaw = false;
+        }
+        if(index == 2) {
+          isSelectedRickshaw = true;
+          isSelectedBike = false;
+          isSelectedMotor = false;
+        }
+      });
+    },
+    child: Container(
+      margin: const EdgeInsets.fromLTRB(0, 5, 10, 5),
+      child: Row (
+        children: [
+          IconButtonWidget(
+            image: image,
+            borderColor: borderColor,
+            backgroundColor: backgroundColor,
           ),
           Container(
-            padding: const EdgeInsets.only(left: 8.0),
-            child: Text(text,
-              style: const TextStyle(
-                fontSize: 12,
-                color: black,
-              ),
+            padding: const EdgeInsets.only(left: 10.0),
+            child: TextWidget(
+              text: text,
             ),
           ),
         ],
       ),
     ),
   );
-  Widget _buildVehicleButton(String image, String text, Color borderColor, Color color) => Container(
-    margin: const EdgeInsets.symmetric(vertical:10, horizontal: 5),
-    child: Row (
-      children: [
-        Container(
-          width: 35,
-          height: 35,
-          decoration: BoxDecoration(
-            color: white,
-            borderRadius: BorderRadius.circular(100),
-            border: Border.all(width: 2.5, color: borderColor),
-          ),
-          child: Container(
-            margin: const EdgeInsets.all(2.0),
-            decoration: BoxDecoration(
-              color: color,
-              borderRadius: BorderRadius.circular(100),
-            ),
-            child: Container(
-              margin: const EdgeInsets.all(3.5),
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage(image),
-                  fit: BoxFit.fill,
-                ),
-              ),
-            ),
-          ),
-        ),
-        Container(
-          padding: const EdgeInsets.only(left: 8.0),
-          child: Text(text,
-            style: const TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.normal,
-              color: black,
-            ),
-          ),
-        ),
-      ],
+  Widget _buildButtonSchedule(int index, String text, Color textColor, Color buttonColor, Color borderColor) => Container(
+    width: 100,
+    height: 35,
+    margin: const EdgeInsets.symmetric(vertical: 10),
+    child: ButtonWidget(
+      onPressed: (){
+        setState(() {
+          if (index == 0) {
+            isSelectMorning = true;
+            isSelectAfternoon = false;
+            isSelectEvening = false;
+          }
+          if (index == 1) {
+            isSelectAfternoon = true;
+            isSelectMorning = false;
+            isSelectEvening = false;
+          }
+          if(index == 2) {
+            isSelectEvening = true;
+            isSelectMorning = false;
+            isSelectAfternoon = false;
+          }
+        });
+      },
+      color: buttonColor,
+      borderSide: BorderSide(
+        color: borderColor,
+        width: 1,
+      ),
+      child: TextWidget(
+        text: text,
+        color: textColor,
+      ),
     ),
   );
+
   Widget _buildDistricts(String text) => Container(
     padding: const EdgeInsets.all(5),
     margin: const EdgeInsets.symmetric(vertical: 10),
@@ -441,55 +445,5 @@ class _BecomeDriverPageWidgetState extends State<BecomeDriverPageWidget> {
         }
       },
     ),
-  );
-  Widget _buildTime(String text, Color color) => Container(
-    padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 15.0),
-    margin: const EdgeInsets.symmetric(vertical: 10),
-    decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(10),
-      border: Border.all(color: silver, width: 1),
-      color: color,
-    ),
-    child: Text(text,
-      style: const TextStyle(
-        color: black,
-        fontWeight: FontWeight.normal,
-        fontSize: 12,
-      ),
-    ),
-  );
-  Widget _buildTakePhoto() => InkWell(
-    child: Container(
-      margin: const EdgeInsets.symmetric(vertical: 10),
-      height: 100,
-      decoration: BoxDecoration(
-        color: platinum,
-        borderRadius: BorderRadius.circular(5),
-        border: Border.all(color: silver, width: 1),
-      ),
-      child: const Center(
-        child: Icon(Icons.photo_camera,
-          size: 48,
-          color: rabbit,
-        ),
-      ),
-    ),
-  );
-  Widget _buildButtonSubmit(String text) => Container(
-      padding: const EdgeInsets.symmetric(vertical: 15),
-      margin: const EdgeInsets.fromLTRB(25, 15, 25, 0),
-      decoration: BoxDecoration(
-        color: rabbit,
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Center(
-        child: Text(text,
-          style: const TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.bold,
-            color: white,
-          ),
-        ),
-      )
   );
 }
