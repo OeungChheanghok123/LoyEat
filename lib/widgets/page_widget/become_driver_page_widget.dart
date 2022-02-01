@@ -31,21 +31,6 @@ class _BecomeDriverPageWidgetState extends State<BecomeDriverPageWidget> {
   bool isSelectAfternoon = false;
   bool isSelectEvening = false;
 
-  final List<DropdownMenuItem<String>> _dropDownDistrictMenuItems = menuDistrictItems.map((String value) =>
-      DropdownMenuItem<String>(
-        value: value,
-        child: TextWidget(text: value),
-        // child: Text(value),
-      ),
-  ).toList();
-
-  final List<DropdownMenuItem<String>> _dropDownCommuneMenuItems = menuCommuneItems.map((String value) =>
-      DropdownMenuItem<String>(
-        value: value,
-        child: Text(value),
-      ),
-  ).toList();
-
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -180,17 +165,14 @@ class _BecomeDriverPageWidgetState extends State<BecomeDriverPageWidget> {
           isTitle: true,
           text: 'Where do you live?',
         ),
-        SizedBox(
-          width: MediaQuery.of(context).size.width,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              _buildDistricts('Districts'),
-              _buildCommunes('Communes'),
-            ],
-          ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            _buildDropdownButton(0, 'Districts', menuDistrictItems),
+            _buildDropdownButton(1, 'Communes', menuCommuneItems),
+          ],
         ),
-        const SizedBox(height: 10),
+        const Space(height: 10),
       ],
     );
   }
@@ -375,75 +357,46 @@ class _BecomeDriverPageWidgetState extends State<BecomeDriverPageWidget> {
       ),
     ),
   );
-
-  Widget _buildDistricts(String text) => Container(
-    padding: const EdgeInsets.all(5),
-    margin: const EdgeInsets.symmetric(vertical: 10),
-    decoration: BoxDecoration(
-      color: white,
-      border: Border.all(color: silver, width: 1),
-      borderRadius: BorderRadius.circular(5),
-    ),
-    child: DropdownButton<String>(
-      value: _dropDownDistrictValue,
-      hint: Text(text,
-        style: const TextStyle(
-          fontSize: 12,
-        ),
+  Widget _buildDropdownButton(int index, String hintText, List<String> menuItems){
+    return Container(
+      padding: const EdgeInsets.fromLTRB(10, 5, 5, 5),
+      margin: const EdgeInsets.symmetric(vertical: 10),
+      decoration: BoxDecoration(
+        color: white,
+        border: Border.all(color: silver, width: 1),
+        borderRadius: BorderRadius.circular(5),
       ),
-      items: _dropDownDistrictMenuItems,
-      borderRadius: BorderRadius.circular(5),
-      isDense: true,
-      dropdownColor: white,
-      itemHeight: null,
-      menuMaxHeight: 300,
-      style: const TextStyle(
-        fontSize: 12,
-        color: black,
-        fontWeight: FontWeight.normal,
+      child: DropdownButton<String>(
+        value: index == 0 ? _dropDownDistrictValue : _dropDownCommuneValue,
+        hint: TextWidget(text: hintText),
+        items: menuItems.map((String value) =>
+          DropdownMenuItem<String>(
+            value: value,
+            child: TextWidget(text: value),
+          ),
+        ).toList(),
+        borderRadius: BorderRadius.circular(5),
+        dropdownColor: white,
+        alignment: AlignmentDirectional.center,
+        isDense: true,
+        itemHeight: null,
+        menuMaxHeight: 300,
+        underline: Container(),
+        onChanged: (String? newValue){
+          if (newValue != null){
+            if (index == 0){
+              setState(() {
+                _dropDownDistrictValue = newValue;
+              });
+            }
+            else {
+              setState(() {
+                _dropDownCommuneValue = newValue;
+              });
+            }
+          }
+        },
       ),
-      alignment: Alignment.center,
-      underline: Container(),
-      onChanged: (String? newValue){
-        if (newValue != null){
-          setState(() => _dropDownDistrictValue = newValue);
-        }
-      },
-    ),
-  );
-  Widget _buildCommunes(String text) => Container(
-    padding: const EdgeInsets.all(5),
-    margin: const EdgeInsets.symmetric(vertical: 10),
-    decoration: BoxDecoration(
-      color: white,
-      border: Border.all(color: silver, width: 1),
-      borderRadius: BorderRadius.circular(5),
-    ),
-    child: DropdownButton<String>(
-      value: _dropDownCommuneValue,
-      hint: Text(text,
-        style: const TextStyle(
-          fontSize: 12,
-        ),
-      ),
-      items: _dropDownCommuneMenuItems,
-      borderRadius: BorderRadius.circular(5),
-      isDense: true,
-      dropdownColor: white,
-      itemHeight: null,
-      menuMaxHeight: 300,
-      style: const TextStyle(
-        fontSize: 12,
-        color: black,
-        fontWeight: FontWeight.normal,
-      ),
-      alignment: Alignment.center,
-      underline: Container(),
-      onChanged: (String? newValue){
-        if (newValue != null){
-          setState(() => _dropDownCommuneValue = newValue);
-        }
-      },
-    ),
-  );
+    );
+  }
 }

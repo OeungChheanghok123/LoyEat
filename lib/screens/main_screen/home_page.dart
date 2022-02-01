@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:loy_eat/widgets/layout_widget/color.dart';
 import 'package:loy_eat/screens/other_screen/home_screen/notification_page.dart';
+import 'package:loy_eat/widgets/layout_widget/icon_widget.dart';
+import 'package:loy_eat/widgets/layout_widget/text_widget.dart';
 import 'package:loy_eat/widgets/page_widget/home_page_widget.dart';
 
 class HomePage extends StatefulWidget {
@@ -13,7 +15,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
 
   bool isToggleClick = false;
-  int notificationCounter = 1;
+  int notificationCounter = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -21,69 +23,65 @@ class _HomePageState extends State<HomePage> {
       child: Scaffold(
         extendBody: true,
         backgroundColor: white,
-        appBar: _buildAppBar(
-            isToggleClick ? rabbit : carrot,
-            isToggleClick ? Icons.toggle_on : Icons.toggle_off,
-            isToggleClick ? 'Online' : 'Offline',
-            isToggleClick ? carrot : rabbit,
-            Icons.notifications,
-        ),
+        appBar: _buildAppBar(),
         body: const HomePageWidget(),
       ),
     );
   }
 
-  AppBar _buildAppBar(Color backgroundColor, IconData leadingIcon, String text, Color counterColor, IconData iconButton){
-    return  AppBar(
-      backgroundColor: backgroundColor,
+  AppBar _buildAppBar(){
+    return AppBar(
+      backgroundColor: isToggleClick ? rabbit : carrot,
       elevation: 0,
       leading: InkWell(
-        splashColor: Colors.transparent,
-        onTap: (){
-          setState(() {
-            isToggleClick = !isToggleClick;
-          });
-        },
-        child: Icon(leadingIcon,
-          size: 45,
+        splashColor: none,
+        onTap: () => setState(() => isToggleClick = !isToggleClick ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          child: IconWidget(
+            icon: isToggleClick ? Icons.toggle_on : Icons.toggle_off,
+            size: 50,
+            color: white,
+          ),
         ),
       ),
-      titleSpacing: 0,
-      title: Text(text,
-        style: const TextStyle(
-          fontSize: 20,
-          fontWeight: FontWeight.w600,
-          color: white,
-        ),
+      titleSpacing: 10,
+      title: TextWidget(
+        text: isToggleClick ? 'Online' : 'Offline',
+        size: 20,
+        fontWeight: FontWeight.bold,
+        color: white,
       ),
       actions: <Widget>[
         Stack(
           alignment: Alignment.center,
           children: [
-            Container(
-              margin: const EdgeInsets.only(right: 5),
-              child: IconButton(
-                icon: Icon(iconButton,
+            InkWell(
+              splashColor: none,
+              onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const NotificationPage())),
+              child: Container(
+                margin: const EdgeInsets.only(right: 10),
+                child: const IconWidget(
+                  icon: Icons.notifications,
                   size: 35,
+                  color: white,
                 ),
-                onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const NotificationPage())),
               ),
             ),
             notificationCounter > 0 ? Positioned(
-              top: 18,
+              top: 15,
               right: 15,
               child: Container(
+                padding: const EdgeInsets.all(2.0),
                 decoration: BoxDecoration(
-                  color: counterColor,
+                  color: isToggleClick ? carrot : rabbit,
                   borderRadius: BorderRadius.circular(5),
                 ),
-                padding: const EdgeInsets.all(2.0),
-                child:  Text('$notificationCounter',
-                  style: const TextStyle(
-                    color: white,
-                    fontSize: 8,
-                    fontWeight: FontWeight.bold,
-                  ),
+                child: TextWidget(
+                  text: notificationCounter.toString(),
+                  color: white,
+                  size: 8,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
             ) : Container(),
