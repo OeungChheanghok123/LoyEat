@@ -11,6 +11,7 @@ class AccountPage extends StatelessWidget {
       child: Scaffold(
         extendBody: true,
         backgroundColor: white,
+        appBar: null,
         body: AccountPageWidget(),
       ),
     );

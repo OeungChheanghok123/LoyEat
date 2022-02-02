@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:loy_eat/widgets/layout_widget/color.dart';
 
-class IconButtonWidget extends StatelessWidget {
+class ImageIconWidget extends StatelessWidget {
   final double size;
   final Color borderColor;
   final Color backgroundColor;
   final String image;
 
-  const IconButtonWidget({
+  const ImageIconWidget({
     Key? key,
     required this.image,
     this.size = 30,

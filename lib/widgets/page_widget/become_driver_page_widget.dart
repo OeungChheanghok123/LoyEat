@@ -3,7 +3,7 @@ import 'package:loy_eat/models/location.dart';
 import 'package:loy_eat/screens/flash_screen/instruction_page.dart';
 import 'package:loy_eat/widgets/layout_widget/button_widget.dart';
 import 'package:loy_eat/widgets/layout_widget/color.dart';
-import 'package:loy_eat/widgets/layout_widget/icon_button_widget.dart';
+import 'package:loy_eat/widgets/layout_widget/image_icon_widget.dart';
 import 'package:loy_eat/widgets/layout_widget/icon_widget.dart';
 import 'package:loy_eat/widgets/layout_widget/radio_button_widget.dart';
 import 'package:loy_eat/widgets/layout_widget/space.dart';
@@ -307,7 +307,7 @@ class _BecomeDriverPageWidgetState extends State<BecomeDriverPageWidget> {
       margin: const EdgeInsets.fromLTRB(0, 5, 10, 5),
       child: Row (
         children: [
-          IconButtonWidget(
+          ImageIconWidget(
             image: image,
             borderColor: borderColor,
             backgroundColor: backgroundColor,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:loy_eat/widgets/layout_widget/color.dart';
+import 'package:loy_eat/widgets/layout_widget/icon_widget.dart';
 import 'package:loy_eat/widgets/layout_widget/space.dart';
 import 'package:loy_eat/screens/other_screen/account_screen/edit_profile_page.dart';
 import 'package:loy_eat/screens/other_screen/account_screen/feedback_page.dart';
@@ -7,6 +8,7 @@ import 'package:loy_eat/screens/other_screen/account_screen/invite_friend_page.d
 import 'package:loy_eat/screens/other_screen/account_screen/language_page.dart';
 import 'package:loy_eat/screens/other_screen/account_screen/rating_score_page.dart';
 import 'package:loy_eat/screens/other_screen/account_screen/support_page.dart';
+import 'package:loy_eat/widgets/layout_widget/text_widget.dart';
 
 class AccountPageWidget extends StatefulWidget {
   const AccountPageWidget({Key? key}) : super(key: key);
@@ -16,6 +18,8 @@ class AccountPageWidget extends StatefulWidget {
 }
 
 class _AccountPageWidgetState extends State<AccountPageWidget> {
+  String driverName = '';
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -28,7 +32,6 @@ class _AccountPageWidgetState extends State<AccountPageWidget> {
         child: Column(
           children: <Widget>[
             _buildDriverDetail,
-            const Space(width: 15),
             _buildMenu,
             _buildButtonLogout,
           ],
@@ -52,12 +55,13 @@ class _AccountPageWidgetState extends State<AccountPageWidget> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                _buildIcon(Icons.account_circle_rounded, 60, rabbit),
+                const IconWidget(icon: Icons.account_circle_rounded, size: 60),
                 Row(
-                  children: [
-                    _buildIcon(Icons.image_rounded, 16, silver),
-                    const Space(),
-                    _buildIcon(Icons.photo_camera_rounded, 16, silver),
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: const <Widget> [
+                    IconWidget(icon: Icons.image_rounded, size: 16, color: silver),
+                    Space(),
+                    IconWidget(icon: Icons.photo_camera_rounded, size: 16, color: silver),
                   ],
                 )
               ],
@@ -65,10 +69,10 @@ class _AccountPageWidgetState extends State<AccountPageWidget> {
             const Space(width: 20),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _buildText('Plang Phalla', 14, black, FontWeight.bold),
-                const Space(width: 10),
-                _buildText('093 807 808', 12, silver, FontWeight.normal),
+              children: const <Widget> [
+                TextWidget(isTitle: true, text: 'Plang Phalla'),
+                Space(width: 10),
+                TextWidget(text: '093 807 808', color: silver),
               ],
             ),
           ],
@@ -118,21 +122,6 @@ class _AccountPageWidgetState extends State<AccountPageWidget> {
     );
   }
   
-  Widget _buildIcon(IconData icon, double size, Color color){
-    return Icon(icon,
-      size: size,
-      color: color,
-    );
-  }
-  Widget _buildText(String text, double fontSize, Color fontColor, FontWeight fontWeight){
-    return Text(text,
-      style: TextStyle(
-        fontSize: fontSize,
-        color: fontColor,
-        fontWeight: fontWeight,
-      ),
-    );
-  }
   Widget _buildMenuItem(IconData leadingIcon, String text, Widget page){
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
