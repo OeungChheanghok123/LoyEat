@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:loy_eat/widgets/layout_widget/button_widget.dart';
 import 'package:loy_eat/widgets/layout_widget/color.dart';
 import 'package:loy_eat/widgets/layout_widget/icon_widget.dart';
 import 'package:loy_eat/widgets/layout_widget/space.dart';
@@ -18,7 +19,8 @@ class AccountPageWidget extends StatefulWidget {
 }
 
 class _AccountPageWidgetState extends State<AccountPageWidget> {
-  String driverName = '';
+  String driverName = 'Plang Phalla';
+  String phoneNumber = '093 807 808';
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +49,7 @@ class _AccountPageWidgetState extends State<AccountPageWidget> {
         borderRadius: BorderRadius.circular(15.0),
       ),
       child: Container(
-        padding: const EdgeInsets.fromLTRB(25, 10, 0, 10),
+        padding: const EdgeInsets.fromLTRB(35, 20, 0, 10),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -55,7 +57,19 @@ class _AccountPageWidgetState extends State<AccountPageWidget> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const IconWidget(icon: Icons.account_circle_rounded, size: 60),
+                Container(
+                  width: 50,
+                  height: 50,
+                  decoration: BoxDecoration(
+                    color: rabbit,
+                    borderRadius: BorderRadius.circular(50),
+                    image: const DecorationImage(
+                      fit: BoxFit.cover,
+                      image: AssetImage('assets/image/driver_profile.png'),
+                    ),
+                  ),
+                ),
+                const Space(),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: const <Widget> [
@@ -63,16 +77,16 @@ class _AccountPageWidgetState extends State<AccountPageWidget> {
                     Space(),
                     IconWidget(icon: Icons.photo_camera_rounded, size: 16, color: silver),
                   ],
-                )
+                ),
               ],
             ),
             const Space(width: 20),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const <Widget> [
-                TextWidget(isTitle: true, text: 'Plang Phalla'),
-                Space(width: 10),
-                TextWidget(text: '093 807 808', color: silver),
+              children: <Widget> [
+                TextWidget(isTitle: true, text: driverName),
+                const Space(height: 10),
+                TextWidget(text: phoneNumber, color: silver),
               ],
             ),
           ],
@@ -97,26 +111,15 @@ class _AccountPageWidgetState extends State<AccountPageWidget> {
   }
   Widget get _buildButtonLogout{
     return Container(
-      width: MediaQuery.of(context).size.width,
-      margin: const EdgeInsets.symmetric(horizontal: 40),
-      child: ElevatedButton(
+      margin: const EdgeInsets.fromLTRB(40, 20, 40, 0),
+      child: ButtonWidget(
         onPressed: (){},
-        style: ButtonStyle(
-          shadowColor: MaterialStateProperty.all(Colors.transparent),
-          foregroundColor: MaterialStateProperty.all(Colors.transparent),
-          backgroundColor: MaterialStateProperty.all(lightGray),
-          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-            RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10.0),
-            ),
-          ),
-        ),
-        child: const Text('Logout',
-          style: TextStyle(
-            fontSize: 16,
-            color: rabbit,
-            fontWeight: FontWeight.bold,
-          ),
+        width: MediaQuery.of(context).size.width,
+        color: lightGray,
+        child: const TextWidget(
+          isTitle: true,
+          text: 'Logout',
+          color: rabbit,
         ),
       ),
     );
@@ -137,26 +140,12 @@ class _AccountPageWidgetState extends State<AccountPageWidget> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Icon(leadingIcon,
-                      size: 25,
-                      color: rabbit,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 15.0),
-                      child: Text(text,
-                        style: const TextStyle(
-                          fontSize: 14,
-                          color: black,
-                          fontWeight: FontWeight.normal,
-                        ),
-                      ),
-                    ),
+                    IconWidget(icon: leadingIcon, size: 25),
+                    const Space(width: 15),
+                    TextWidget(text: text),
                   ],
                 ),
-                const Icon(Icons.arrow_forward_ios_rounded,
-                  size: 22,
-                  color: black,
-                ),
+                const IconWidget(icon: Icons.arrow_forward_ios_rounded, size: 22, color: black,),
               ],
             ),
           ),
