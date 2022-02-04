@@ -13,6 +13,9 @@ class TextFieldWidget extends StatelessWidget {
   final Color hintColor;
   final double borderRadius;
   final double marginVertical;
+  final bool isSuffixIcon;
+  final Icon suffixIcon;
+
   const TextFieldWidget({
     Key? key,
     required this.inputType,
@@ -26,6 +29,8 @@ class TextFieldWidget extends StatelessWidget {
     this.hintColor = silver,
     this.borderRadius = 5,
     this.marginVertical = 10,
+    this.isSuffixIcon = false,
+    this.suffixIcon = const Icon(null),
   }) : super(key: key);
 
   @override
@@ -46,6 +51,7 @@ class TextFieldWidget extends StatelessWidget {
         decoration: InputDecoration(
           contentPadding: EdgeInsets.fromLTRB(contentPaddingLeft, 0, 0, 0),
           hintText: hintText,
+          suffixIcon: isSuffixIcon ? suffixIcon : null,
           hintStyle: TextStyle(
             fontSize: fontSize,
             fontWeight: fontWeight,
