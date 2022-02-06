@@ -33,13 +33,13 @@ class _NotificationPageState extends State<NotificationPage> {
         child: const IconWidget(
           icon: Icons.arrow_back_ios,
           color: white,
-          size: 32,
+          size: 24,
         ),
       ),
       titleSpacing: 0,
       title: const TextWidget(
         text: 'Notification',
-        size: 20,
+        size: 16,
         fontWeight: FontWeight.bold,
         color: white,
       ),

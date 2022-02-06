@@ -33,14 +33,14 @@ class _EditProfilePageState extends State<EditProfilePage> {
         child: const IconWidget(
           icon: Icons.arrow_back_ios,
           color: black,
-          size: 32,
+          size: 24,
         ),
       ),
       titleSpacing: 0,
       centerTitle: true,
       title: const TextWidget(
         text: 'Edit Profile',
-        size: 20,
+        size: 16,
         fontWeight: FontWeight.bold,
         color: black,
       ),

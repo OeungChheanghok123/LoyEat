@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:loy_eat/widgets/layout_widget/button_widget.dart';
 import 'package:loy_eat/widgets/layout_widget/color.dart';
@@ -113,7 +115,9 @@ class _AccountPageWidgetState extends State<AccountPageWidget> {
     return Container(
       margin: const EdgeInsets.fromLTRB(40, 20, 40, 0),
       child: ButtonWidget(
-        onPressed: (){},
+        onPressed: (){
+          exit(0);
+        },
         width: MediaQuery.of(context).size.width,
         color: lightGray,
         child: const TextWidget(

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:loy_eat/models/location.dart';
+import 'package:loy_eat/screens/main_screen/account_page.dart';
 import 'package:loy_eat/widgets/layout_widget/button_widget.dart';
 import 'package:loy_eat/widgets/layout_widget/color.dart';
+import 'package:loy_eat/widgets/layout_widget/icon_widget.dart';
 import 'package:loy_eat/widgets/layout_widget/image_icon_widget.dart';
 import 'package:loy_eat/widgets/layout_widget/radio_button_widget.dart';
 import 'package:loy_eat/widgets/layout_widget/space.dart';
@@ -17,6 +20,11 @@ class EditProfilePageWidget extends StatefulWidget {
 class _EditProfilePageWidgetState extends State<EditProfilePageWidget> {
 
   int _radioValue = 0;
+  String? _dropDownProvinceValue;
+  String? _dropDownDistrictValue;
+  String? _dropDownCommuneValue;
+  String? _dropDownPhum;
+
   String hintPhoneNumber = '093 807 808';
 
   bool isSelectedBike = true;
@@ -26,6 +34,14 @@ class _EditProfilePageWidgetState extends State<EditProfilePageWidget> {
   bool isSelectMorning = true;
   bool isSelectAfternoon = false;
   bool isSelectEvening = false;
+
+  bool isMon = false;
+  bool isTue = false;
+  bool isWed = false;
+  bool isThu = false;
+  bool isFri = false;
+  bool isSat = false;
+  bool isSun = false;
 
   @override
   Widget build(BuildContext context) {
@@ -40,11 +56,11 @@ class _EditProfilePageWidgetState extends State<EditProfilePageWidget> {
             _buildDriverGenderAndBirthYear,
             _buildDriverMobilePhone,
             _buildDriverVehicle,
-            // _buildDriverLive,
+            _buildDriverCurrentAddress,
             _buildDriverSchedule,
-            // _buildDriverIDCard,
-            // _buildDriverReferral,
-            // _buildSubmitButton,
+            _buildDriverWorkPerWeek,
+            _buildDriverIDCard,
+            _buildSubmitButton,
           ],
         ),
       ),
@@ -154,6 +170,48 @@ class _EditProfilePageWidgetState extends State<EditProfilePageWidget> {
       ],
     );
   }
+  Widget get _buildDriverCurrentAddress{
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        const TextWidget(
+          isTitle: true,
+          text: 'Current Address:',
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            _buildDropdownButton(0, 'Province', menuProvinceItems),
+            _buildDropdownButton(1, 'District', menuDistrictItems),
+          ],
+        ),
+        Center(child: _buildDropdownButton(2, 'Commune', menuCommuneItems)),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            _buildDropdownButton(3, 'Village', menuVillageItems),
+            const TextFieldWidget(
+              inputType: TextInputType.text,
+              width: 80,
+              height: 35,
+              hintText: 'Street',
+              textAlign: TextAlign.center,
+              contentPaddingLeft: 0,
+            ),
+            const TextFieldWidget(
+              inputType: TextInputType.text,
+              width: 80,
+              height: 35,
+              hintText: 'House No',
+              textAlign: TextAlign.center,
+              contentPaddingLeft: 0,
+            ),
+          ],
+        ),
+        const Space(height: 10),
+      ],
+    );
+  }
   Widget get _buildDriverSchedule{
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -174,10 +232,81 @@ class _EditProfilePageWidgetState extends State<EditProfilePageWidget> {
       ],
     );
   }
-
+  Widget get _buildDriverWorkPerWeek{
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            _buildButtonWeek(0, 'Mon', isMon ? white : black, isMon ? rabbit : platinum),
+            _buildButtonWeek(1, 'Tue', isTue ? white : black, isTue ? rabbit : platinum),
+            _buildButtonWeek(2, 'Wed', isWed ? white : black, isWed ? rabbit : platinum),
+            _buildButtonWeek(3, 'Thu', isThu ? white : black, isThu ? rabbit : platinum),
+            _buildButtonWeek(4, 'Fri', isFri ? white : black, isFri ? rabbit : platinum),
+            _buildButtonWeek(5, 'Sat', isSat ? white : black, isSat ? rabbit : platinum),
+            _buildButtonWeek(6, 'Sun', isSun ? white : black, isSun ? rabbit : platinum),
+          ],
+        ),
+        const Space(height: 10),
+      ],
+    );
+  }
+  Widget get _buildDriverIDCard{
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 10),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children:  <Widget>[
+          const TextWidget(
+            isTitle: true,
+            text: 'ID Card photo:',
+          ),
+          Container(
+            margin: const EdgeInsets.symmetric(vertical: 10),
+            child: ButtonWidget(
+              width: MediaQuery.of(context).size.width,
+              height: 100,
+              onPressed: () {
+                // ignore: avoid_print
+                print('take photo is clicked');
+              },
+              color: platinum,
+              child: const IconWidget(
+                icon: Icons.image,
+                size: 48,
+                color: black,
+              ),
+            ),
+          ),
+          const Space(),
+        ],
+      ),
+    );
+  }
+  Widget get _buildSubmitButton{
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      margin: const EdgeInsets.symmetric(horizontal: 35),
+      child:  ButtonWidget(
+        height: 40,
+        onPressed: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const AccountPage())),
+        borderRadius: 25,
+        child: const TextWidget(
+          isTitle: true,
+          text: 'Change',
+          color: white,
+        ),
+      ),
+    );
+  }
 
   Widget _buildRadioButton(int index, String text) => InkWell(
     splashColor: none,
+    focusColor: none,
+    hoverColor: none,
+    highlightColor: none,
     onTap: () => setState(() => _radioValue = index ),
     child: Container(
       margin: const EdgeInsets.fromLTRB(0, 10, 10, 10),
@@ -198,6 +327,9 @@ class _EditProfilePageWidgetState extends State<EditProfilePageWidget> {
   );
   Widget _buildVehicleButton(int index, String image, String text, Color borderColor, Color backgroundColor) => InkWell(
     splashColor: none,
+    focusColor: none,
+    hoverColor: none,
+    highlightColor: none,
     onTap: (){
       setState(() {
         if (index == 0) {
@@ -271,4 +403,95 @@ class _EditProfilePageWidgetState extends State<EditProfilePageWidget> {
       ),
     ),
   );
+  Widget _buildButtonWeek(int index, String text, Color textColor, Color buttonColor) => InkWell(
+    splashColor: none,
+    focusColor: none,
+    hoverColor: none,
+    highlightColor: none,
+    onTap: (){
+      setState(() {
+        switch(index) {
+          case 0:
+            isMon = !isMon;
+            break;
+          case 1:
+            isTue = !isTue;
+            break;
+          case 2:
+            isWed = !isWed;
+            break;
+          case 3:
+            isThu = !isThu;
+            break;
+          case 4:
+            isFri = !isFri;
+            break;
+          case 5:
+            isSat = !isSat;
+            break;
+          case 6:
+            isSun = !isSun;
+            break;
+        }
+      });
+    },
+    child: Container(
+      width: 40,
+      height: 30,
+      margin: const EdgeInsets.symmetric(vertical: 5),
+      decoration: BoxDecoration(
+        color: buttonColor,
+        borderRadius: BorderRadius.circular(5),
+      ),
+      child: Center(
+        child: TextWidget(
+          text: text,
+          color: textColor,
+        ),
+      ),
+    ),
+  );
+  Widget _buildDropdownButton(int index, String hintText, List<String> menuItems){
+    return Container(
+      padding: const EdgeInsets.fromLTRB(10, 5, 5, 5),
+      margin: const EdgeInsets.symmetric(vertical: 10),
+      decoration: BoxDecoration(
+        color: white,
+        border: Border.all(color: silver, width: 1),
+        borderRadius: BorderRadius.circular(5),
+      ),
+      child: DropdownButton<String>(
+        value: index == 0 ? _dropDownProvinceValue : index == 1 ? _dropDownDistrictValue : index == 2 ? _dropDownCommuneValue : _dropDownPhum,
+        hint: TextWidget(text: hintText),
+        items: menuItems.map((String value) =>
+            DropdownMenuItem<String>(
+              value: value,
+              child: TextWidget(text: value),
+            ),
+        ).toList(),
+        borderRadius: BorderRadius.circular(5),
+        dropdownColor: white,
+        alignment: AlignmentDirectional.center,
+        isDense: true,
+        itemHeight: null,
+        menuMaxHeight: 300,
+        underline: Container(),
+        onChanged: (String? newValue){
+          setState(() {
+            if (newValue != null){
+              if (index == 0) {
+                _dropDownProvinceValue = newValue;
+              } else if (index == 1) {
+                _dropDownDistrictValue = newValue;
+              } else if (index == 2) {
+                _dropDownCommuneValue = newValue;
+              } else {
+                _dropDownPhum = newValue;
+              }
+            }
+          });
+        },
+      ),
+    );
+  }
 }

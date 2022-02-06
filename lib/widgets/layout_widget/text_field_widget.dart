@@ -4,6 +4,7 @@ import 'package:loy_eat/widgets/layout_widget/color.dart';
 class TextFieldWidget extends StatelessWidget {
   final TextInputType inputType;
   final double height;
+  final double width;
   final TextAlign textAlign;
   final double fontSize;
   final Color textColor;
@@ -20,6 +21,7 @@ class TextFieldWidget extends StatelessWidget {
     Key? key,
     required this.inputType,
     required this.height,
+    this.width = double.infinity,
     this.textAlign = TextAlign.start,
     this.fontSize = 12,
     this.textColor = black,
@@ -38,6 +40,7 @@ class TextFieldWidget extends StatelessWidget {
     return Container(
       margin: EdgeInsets.symmetric(vertical: marginVertical),
       height: height,
+      width: width,
       child: TextField(
         keyboardType: inputType,
         textAlign: textAlign,

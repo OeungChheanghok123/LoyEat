@@ -45,7 +45,7 @@ class _BecomeDriverPageWidgetState extends State<BecomeDriverPageWidget> {
             _buildDriverGenderAndBirthYear,
             _buildDriverMobilePhone,
             _buildDriverVehicle,
-            _buildDriverLive,
+            _buildDriverAddress,
             _buildDriverSchedule,
             _buildDriverIDCard,
             _buildDriverReferral,
@@ -157,23 +157,29 @@ class _BecomeDriverPageWidgetState extends State<BecomeDriverPageWidget> {
       ],
     );
   }
-  Widget get _buildDriverLive{
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        const TextWidget(
-          isTitle: true,
-          text: 'Where do you live?',
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            _buildDropdownButton(0, 'Districts', menuDistrictItems),
-            _buildDropdownButton(1, 'Communes', menuCommuneItems),
-          ],
-        ),
-        const Space(height: 10),
-      ],
+  Widget get _buildDriverAddress{
+    return SizedBox(
+      width: double.infinity,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          const TextWidget(
+            isTitle: true,
+            text: 'Where do you live?',
+          ),
+          SizedBox(
+            width: double.infinity,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _buildDropdownButton(0, 'Districts', menuDistrictItems),
+                _buildDropdownButton(1, 'Communes', menuCommuneItems),
+              ],
+            ),
+          ),
+          const Space(height: 10),
+        ],
+      ),
     );
   }
   Widget get _buildDriverSchedule{
@@ -210,7 +216,7 @@ class _BecomeDriverPageWidgetState extends State<BecomeDriverPageWidget> {
           child: ButtonWidget(
             width: MediaQuery.of(context).size.width,
             height: 100,
-            onPressed: () => print('take photo is clicked'),
+            onPressed: () => print('take photo is clicked'), // ignore_for_file: avoid_print
             color: platinum,
             child: const IconWidget(
               icon: Icons.photo_camera,

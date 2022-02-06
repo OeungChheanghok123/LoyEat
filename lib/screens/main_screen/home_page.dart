@@ -40,7 +40,7 @@ class _HomePageState extends State<HomePage> {
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: IconWidget(
             icon: isToggleClick ? Icons.toggle_on : Icons.toggle_off,
-            size: 50,
+            size: 40,
             color: white,
           ),
         ),
@@ -48,7 +48,7 @@ class _HomePageState extends State<HomePage> {
       titleSpacing: 10,
       title: TextWidget(
         text: isToggleClick ? 'Online' : 'Offline',
-        size: 20,
+        size: 16,
         fontWeight: FontWeight.bold,
         color: white,
       ),
