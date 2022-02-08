@@ -12,6 +12,8 @@ class EditProfilePage extends StatefulWidget {
 }
 
 class _EditProfilePageState extends State<EditProfilePage> {
+  String titleText = 'Edit Profile';
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -38,8 +40,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
       ),
       titleSpacing: 0,
       centerTitle: true,
-      title: const TextWidget(
-        text: 'Edit Profile',
+      title: TextWidget(
+        text: titleText,
         size: 16,
         fontWeight: FontWeight.bold,
         color: black,

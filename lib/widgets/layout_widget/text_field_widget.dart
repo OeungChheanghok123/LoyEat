@@ -7,9 +7,10 @@ class TextFieldWidget extends StatelessWidget {
   final double width;
   final TextAlign textAlign;
   final double fontSize;
+  final int maxLine;
   final Color textColor;
   final FontWeight fontWeight;
-  final double contentPaddingLeft;
+  final EdgeInsets contentPadding;
   final String hintText;
   final Color hintColor;
   final double borderRadius;
@@ -24,9 +25,10 @@ class TextFieldWidget extends StatelessWidget {
     this.width = double.infinity,
     this.textAlign = TextAlign.start,
     this.fontSize = 12,
+    this.maxLine = 1,
     this.textColor = black,
     this.fontWeight = FontWeight.normal,
-    this.contentPaddingLeft = 10,
+    this.contentPadding = const EdgeInsets.fromLTRB(10, 0, 0, 0),
     this.hintText = '',
     this.hintColor = silver,
     this.borderRadius = 5,
@@ -46,13 +48,14 @@ class TextFieldWidget extends StatelessWidget {
         textAlign: textAlign,
         autocorrect: false,
         textAlignVertical: TextAlignVertical.center,
+        maxLines: maxLine,
         style: TextStyle(
           fontSize: fontSize,
           fontWeight: fontWeight,
           color: textColor,
         ),
         decoration: InputDecoration(
-          contentPadding: EdgeInsets.fromLTRB(contentPaddingLeft, 0, 0, 0),
+          contentPadding: contentPadding,
           hintText: hintText,
           suffixIcon: isSuffixIcon ? suffixIcon : null,
           hintStyle: TextStyle(

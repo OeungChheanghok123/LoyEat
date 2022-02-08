@@ -12,6 +12,8 @@ class InviteFriendPageWidget extends StatefulWidget {
 }
 
 class _InviteFriendPageWidgetState extends State<InviteFriendPageWidget> {
+  String points = '100p';
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -37,14 +39,14 @@ class _InviteFriendPageWidgetState extends State<InviteFriendPageWidget> {
           const Space(height: 10),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
+            children: [
               TextWidget(
                 isTitle: true,
-                text: '100p',
+                text: points,
                 color: rabbit,
               ),
-              Space(),
-              IconWidget(icon: Icons.loyalty_outlined),
+              const Space(),
+              const IconWidget(icon: Icons.loyalty_outlined),
             ],
           ),
           const Space(height: 10),

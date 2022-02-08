@@ -3,6 +3,7 @@ import 'package:loy_eat/widgets/layout_widget/color.dart';
 
 class TextWidget extends StatelessWidget {
   final String text;
+  final TextAlign textAlign;
   final double size;
   final FontWeight fontWeight;
   final Color color;
@@ -11,6 +12,7 @@ class TextWidget extends StatelessWidget {
   const TextWidget({
     Key? key,
     required this.text,
+    this.textAlign = TextAlign.start,
     this.size = 12,
     this.fontWeight = FontWeight.normal,
     this.color = black,
@@ -19,6 +21,7 @@ class TextWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Text(text,
+    textAlign: textAlign,
     style: isTitle ? TextStyle(
       fontSize: 14,
       fontWeight: FontWeight.bold,

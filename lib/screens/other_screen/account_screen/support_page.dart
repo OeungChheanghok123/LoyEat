@@ -12,6 +12,8 @@ class SupportPage extends StatefulWidget {
 }
 
 class _SupportPageState extends State<SupportPage> {
+  String titleText = 'Need a Support';
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -38,8 +40,8 @@ class _SupportPageState extends State<SupportPage> {
       ),
       titleSpacing: 0,
       centerTitle: true,
-      title: const TextWidget(
-        text: 'Need a Support',
+      title: TextWidget(
+        text: titleText,
         size: 16,
         fontWeight: FontWeight.bold,
         color: black,

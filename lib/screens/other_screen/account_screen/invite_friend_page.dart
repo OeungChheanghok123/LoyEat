@@ -13,6 +13,8 @@ class InviteFriendPage extends StatefulWidget {
 }
 
 class _InviteFriendPageState extends State<InviteFriendPage> {
+  String titleText = 'Invite Friends to Earn Points';
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -40,8 +42,8 @@ class _InviteFriendPageState extends State<InviteFriendPage> {
       ),
       titleSpacing: 0,
       centerTitle: true,
-      title: const TextWidget(
-        text: 'Invite Friends to Earn Points',
+      title: TextWidget(
+        text: titleText,
         size: 16,
         fontWeight: FontWeight.bold,
         color: black,

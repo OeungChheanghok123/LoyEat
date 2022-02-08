@@ -12,6 +12,12 @@ class SupportPageWidget extends StatefulWidget {
 }
 
 class _SupportPageWidgetState extends State<SupportPageWidget> {
+
+  String smartImage = 'assets/image/smart_axiata.svg';
+  String cellcardImage = 'assets/image/cellcard.svg';
+  String smartNumber = '093 88 44 00';
+  String cellcardNumber = '085 90 33 00';
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -46,33 +52,33 @@ class _SupportPageWidgetState extends State<SupportPageWidget> {
             const Space(height: 15),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
+              children: [
                 SizedBox(
                   width: 25,
                   height: 20,
                   child: SvgPictureWidget(
-                    imageString: 'assets/image/smart_axiata.svg',
+                    imageString: smartImage,
                     label: 'Smart Number: 093 88 44 00',
                   ),
                 ),
-                Space(width: 10),
-                TextWidget(text: '093 88 44 00', size: 14),
+                const Space(width: 10),
+                TextWidget(text: smartNumber, size: 14),
               ],
             ),
             const Space(height: 15),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
+              children: [
                 SizedBox(
                   width: 25,
                   height: 20,
                   child: SvgPictureWidget(
-                    imageString: 'assets/image/cellcard.svg',
+                    imageString: cellcardImage,
                     label: 'Cellcard Number: 085 90 33 00',
                   ),
                 ),
-                Space(width: 10),
-                TextWidget(text: '085 90 33 00', size: 14),
+                const Space(width: 10),
+                TextWidget(text: cellcardNumber, size: 14),
               ],
             ),
           ],
