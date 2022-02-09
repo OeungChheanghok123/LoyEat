@@ -15,6 +15,15 @@ class RatingScorePageWidget extends StatefulWidget {
 class _RatingScorePageWidgetState extends State<RatingScorePageWidget> {
   double totalScorePercentage = 82.5;
   double totalCustomerPercentage = 80;
+  double totalMerchantPercentage = 85;
+
+  int feedbackAllCounter = 12;
+  int feedbackCustomerCounter = 10;
+  int feedbackMerchantCounter = 2;
+
+  bool isFeedbackAll = true;
+  bool isFeedbackCustomer = false;
+  bool isFeedbackMerchant = false;
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +39,8 @@ class _RatingScorePageWidgetState extends State<RatingScorePageWidget> {
             _buildTotalScore,
             _buildUnderLine,
             _buildSatisfactionDetail,
+            _buildUnderLine,
+            _buildRecentFeedback,
           ],
         ),
       ),
@@ -74,6 +85,100 @@ class _RatingScorePageWidgetState extends State<RatingScorePageWidget> {
         children: [
           const TextWidget(text: 'Satisfaction Detail', isTitle: true,),
           _buildCustomerRating,
+          _buildMerchantRating,
+          Container(
+            margin: const EdgeInsets.only(top: 5),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: const [
+                TextWidget(text: 'All time ratings', size: 10,),
+                Space(width: 3),
+                IconWidget(icon: Icons.keyboard_arrow_down, color: black, size: 18,),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+  Widget get _buildRecentFeedback{
+    return SizedBox(
+      width: double.infinity,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const TextWidget(text: 'Recent Feedback', isTitle: true,),
+              Row(
+                children: [
+                  _buildMenuFeedback(1, 'All', isFeedbackAll ? rabbit : black, '$feedbackAllCounter', isFeedbackAll ? rabbit : text),
+                  Container(
+                    width: 1,
+                    height: 12,
+                    color: black,
+                  ),
+                  _buildMenuFeedback(2, 'Customer', isFeedbackCustomer ? rabbit : black, '$feedbackCustomerCounter', isFeedbackCustomer ? rabbit : text),
+                  Container(
+                    width: 1,
+                    height: 12,
+                    color: black,
+                  ),
+                  _buildMenuFeedback(3, 'Merchant', isFeedbackMerchant ? rabbit : black, '$feedbackMerchantCounter', isFeedbackMerchant ? rabbit : text),
+                ],
+              ),
+            ],
+          ),
+          Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Expanded(
+                    flex: 1,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: const [
+                        Expanded(
+                          flex: -1,
+                          child: TextWidget(
+                            text: '1. ',
+                          ),
+                        ),
+                        Expanded(
+                          child: TextWidget(
+                            text: 'You did a great service.',
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    child: Container(
+                      width: double.minPositive,
+                      height: 20,
+                      margin: const EdgeInsets.only(left: 45),
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: 5,
+                        itemBuilder: (BuildContext context, int index){
+                          return Row(
+                            children: const [
+                              IconWidget(icon: Icons.star_outlined, color: black, size: 20,),
+                              Space(width: 3),
+                            ],
+                          );
+                        },
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ],
       ),
     );
@@ -95,6 +200,7 @@ class _RatingScorePageWidgetState extends State<RatingScorePageWidget> {
                   TextWidget(text: '$totalCustomerPercentage%', fontWeight: FontWeight.bold, color: rabbit,),
                   const Space(),
                   const IconWidget(icon: Icons.thumb_up, size: 15,),
+                  const Space(),
                 ],
               ),
             ],
@@ -104,6 +210,138 @@ class _RatingScorePageWidgetState extends State<RatingScorePageWidget> {
             dashLength: 2.5,
             lineThickness: 2,
             dashColor: silver,
+          ),
+          Column(
+            children: [
+              const Space(),
+              _buildStarRating(5),
+              _buildStarRating(4),
+              _buildStarRating(3),
+              _buildStarRating(2),
+              _buildStarRating(1),
+            ],
+          )
+        ],
+      ),
+    );
+  }
+  Widget get _buildMerchantRating{
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 5),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const TextWidget(text: 'Merchant', color: rabbit,),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  TextWidget(text: '$totalMerchantPercentage%', fontWeight: FontWeight.bold, color: rabbit,),
+                  const Space(),
+                  const IconWidget(icon: Icons.thumb_up, size: 15,),
+                  const Space(),
+                ],
+              ),
+            ],
+          ),
+          const Space(),
+          const DottedLine(
+            dashLength: 2.5,
+            lineThickness: 2,
+            dashColor: silver,
+          ),
+          Column(
+            children: [
+              const Space(),
+              _buildStarRating(5),
+              _buildStarRating(4),
+              _buildStarRating(3),
+              _buildStarRating(2),
+              _buildStarRating(1),
+            ],
+          )
+        ],
+      ),
+    );
+  }
+  Widget _buildStarRating(int itemCount){
+    return Container(
+      margin: const EdgeInsets.only(bottom: 5),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Expanded(
+            flex: 1,
+            child: SizedBox(
+              width: double.minPositive,
+              height: 20,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: itemCount,
+                itemBuilder: (BuildContext context, int index){
+                  return Row(
+                    children: [
+                      IconWidget(icon: itemCount > 1 ? Icons.star_outlined : Icons.star_border_outlined, color: black, size: 18,),
+                      const Space(width: 15),
+                    ],
+                  );
+                },
+              ),
+            ),
+          ),
+          TextWidget(text: itemCount > 1 ? '${itemCount*2}' : '0'),
+          const Space(),
+        ],
+      ),
+    );
+  }
+  Widget _buildMenuFeedback(int index, String txt, Color txtColor, String counterTxt, Color counterColor){
+    return InkWell(
+      splashColor: none,
+      focusColor: none,
+      hoverColor: none,
+      highlightColor: none,
+      onTap: (){
+        setState(() {
+          if (index == 1){
+            isFeedbackAll = true;
+            isFeedbackCustomer = false;
+            isFeedbackMerchant = false;
+          } else if (index == 2){
+            isFeedbackCustomer = true;
+            isFeedbackAll = false;
+            isFeedbackMerchant = false;
+          } else {
+            isFeedbackMerchant = true;
+            isFeedbackAll = false;
+            isFeedbackCustomer = false;
+          }
+        });
+      },
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          Padding(
+            padding: const EdgeInsets.fromLTRB(5, 8, 6, 5),
+            child: TextWidget(text: txt, size: 8, color: txtColor,),
+          ),
+          Positioned(
+            top: 1,
+            right: 3,
+            child: Container(
+              height: 9,
+              width: 9,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: counterColor,
+                borderRadius: BorderRadius.circular(100),
+              ),
+              child: Center(
+                child: TextWidget(text: counterTxt, size: 4, color: white, textAlign: TextAlign.center,),
+              ),
+            ),
           ),
         ],
       ),
