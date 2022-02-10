@@ -3,6 +3,7 @@ import 'package:loy_eat/widgets/layout_widget/color.dart';
 import 'package:loy_eat/screens/other_screen/home_screen/notification_page.dart';
 import 'package:loy_eat/widgets/layout_widget/icon_widget.dart';
 import 'package:loy_eat/widgets/layout_widget/text_widget.dart';
+import 'package:loy_eat/widgets/layout_widget/title_appbar_widget.dart';
 import 'package:loy_eat/widgets/page_widget/home_page_widget.dart';
 
 class HomePage extends StatefulWidget {
@@ -46,10 +47,8 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       titleSpacing: 10,
-      title: TextWidget(
+      title: TitleAppBarWidget(
         text: isToggleClick ? 'Online' : 'Offline',
-        size: 16,
-        fontWeight: FontWeight.bold,
         color: white,
       ),
       actions: <Widget>[

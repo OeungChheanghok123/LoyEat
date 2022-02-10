@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:loy_eat/widgets/layout_widget/color.dart';
 import 'package:loy_eat/widgets/layout_widget/icon_widget.dart';
-import 'package:loy_eat/widgets/layout_widget/text_widget.dart';
+import 'package:loy_eat/widgets/layout_widget/title_appbar_widget.dart';
 import 'package:loy_eat/widgets/page_widget/feedback_page_widget.dart';
 
 class FeedbackPage extends StatefulWidget {
@@ -40,12 +40,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
       ),
       titleSpacing: 0,
       centerTitle: true,
-      title: TextWidget(
-        text: titleText,
-        size: 16,
-        fontWeight: FontWeight.bold,
-        color: black,
-      ),
+      title: TitleAppBarWidget(text: titleText),
     );
   }
 }

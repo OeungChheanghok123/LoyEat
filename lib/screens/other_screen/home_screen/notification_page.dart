@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:loy_eat/widgets/layout_widget/color.dart';
 import 'package:loy_eat/widgets/layout_widget/icon_widget.dart';
-import 'package:loy_eat/widgets/layout_widget/text_widget.dart';
+import 'package:loy_eat/widgets/layout_widget/title_appbar_widget.dart';
 import 'package:loy_eat/widgets/page_widget/notification_page_widget.dart';
 
 class NotificationPage extends StatefulWidget {
@@ -12,6 +12,8 @@ class NotificationPage extends StatefulWidget {
 }
 
 class _NotificationPageState extends State<NotificationPage> {
+  String titleText = 'Notification';
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -37,10 +39,8 @@ class _NotificationPageState extends State<NotificationPage> {
         ),
       ),
       titleSpacing: 0,
-      title: const TextWidget(
-        text: 'Notification',
-        size: 16,
-        fontWeight: FontWeight.bold,
+      title: TitleAppBarWidget(
+        text: titleText,
         color: white,
       ),
     );

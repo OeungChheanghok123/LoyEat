@@ -19,7 +19,7 @@ class _LanguagePageWidgetState extends State<LanguagePageWidget> {
   String khmerLabel = 'ខ្មែរ';
   String ukLabel = 'English';
 
-  bool isSelectedKhmer = true;
+  bool isSelectedKhmer = false;
   bool isSelectedEnglish = true;
 
   @override

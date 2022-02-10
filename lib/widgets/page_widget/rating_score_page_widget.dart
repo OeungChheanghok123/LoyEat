@@ -37,9 +37,9 @@ class _RatingScorePageWidgetState extends State<RatingScorePageWidget> {
         child: Column(
           children: <Widget>[
             _buildTotalScore,
-            _buildUnderLine,
+            _buildHorizontalLine,
             _buildSatisfactionDetail,
-            _buildUnderLine,
+            _buildHorizontalLine,
             _buildRecentFeedback,
           ],
         ),
@@ -67,14 +67,6 @@ class _RatingScorePageWidgetState extends State<RatingScorePageWidget> {
           const TextWidget(text: '(Aim >= 90%)', color: rabbit,)
         ],
       ),
-    );
-  }
-  Widget get _buildUnderLine{
-    return Container(
-      width: double.infinity,
-      height: 1.5,
-      color: silver,
-      margin: const EdgeInsets.fromLTRB(5, 10, 5, 5),
     );
   }
   Widget get _buildSatisfactionDetail{
@@ -115,70 +107,17 @@ class _RatingScorePageWidgetState extends State<RatingScorePageWidget> {
               Row(
                 children: [
                   _buildMenuFeedback(1, 'All', isFeedbackAll ? rabbit : black, '$feedbackAllCounter', isFeedbackAll ? rabbit : text),
-                  Container(
-                    width: 1,
-                    height: 12,
-                    color: black,
-                  ),
+                  _buildVerticalLine,
                   _buildMenuFeedback(2, 'Customer', isFeedbackCustomer ? rabbit : black, '$feedbackCustomerCounter', isFeedbackCustomer ? rabbit : text),
-                  Container(
-                    width: 1,
-                    height: 12,
-                    color: black,
-                  ),
+                  _buildVerticalLine,
                   _buildMenuFeedback(3, 'Merchant', isFeedbackMerchant ? rabbit : black, '$feedbackMerchantCounter', isFeedbackMerchant ? rabbit : text),
                 ],
               ),
             ],
           ),
-          Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Expanded(
-                    flex: 1,
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
-                        Expanded(
-                          flex: -1,
-                          child: TextWidget(
-                            text: '1. ',
-                          ),
-                        ),
-                        Expanded(
-                          child: TextWidget(
-                            text: 'You did a great service.',
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Expanded(
-                    child: Container(
-                      width: double.minPositive,
-                      height: 20,
-                      margin: const EdgeInsets.only(left: 45),
-                      child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: 5,
-                        itemBuilder: (BuildContext context, int index){
-                          return Row(
-                            children: const [
-                              IconWidget(icon: Icons.star_outlined, color: black, size: 20,),
-                              Space(width: 3),
-                            ],
-                          );
-                        },
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
+          _buildDetailFeedbackAndRating(1, 'You did a great service.', 4),
+          _buildDetailFeedbackAndRating(2, 'You did a great service. Keep your work.', 5),
+          _buildDetailFeedbackAndRating(3, 'Why too late? I don\'t like.', 3),
         ],
       ),
     );
@@ -266,6 +205,21 @@ class _RatingScorePageWidgetState extends State<RatingScorePageWidget> {
       ),
     );
   }
+  Widget get _buildHorizontalLine{
+    return Container(
+      width: double.infinity,
+      height: 1.5,
+      color: silver,
+      margin: const EdgeInsets.fromLTRB(5, 10, 5, 5),
+    );
+  }
+  Widget get _buildVerticalLine{
+    return Container(
+      width: 1,
+      height: 12,
+      color: black,
+    );
+  }
   Widget _buildStarRating(int itemCount){
     return Container(
       margin: const EdgeInsets.only(bottom: 5),
@@ -340,6 +294,51 @@ class _RatingScorePageWidgetState extends State<RatingScorePageWidget> {
               ),
               child: Center(
                 child: TextWidget(text: counterTxt, size: 4, color: white, textAlign: TextAlign.center,),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+  Widget _buildDetailFeedbackAndRating(int index, String text, int itemCount){
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 5),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          Expanded(
+            flex: 1,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  flex: -1,
+                  child: TextWidget(text: '$index '),
+                ),
+                Expanded(
+                  child: TextWidget(text: text),
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+            child: Container(
+              width: double.minPositive,
+              height: 20,
+              margin: const EdgeInsets.only(left: 45),
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: itemCount,
+                itemBuilder: (BuildContext context, int index){
+                  return Row(
+                    children: const [
+                      IconWidget(icon: Icons.star_outlined, color: black, size: 20,),
+                      Space(width: 3),
+                    ],
+                  );
+                },
               ),
             ),
           ),
