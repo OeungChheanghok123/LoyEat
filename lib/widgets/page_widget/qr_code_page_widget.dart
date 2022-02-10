@@ -41,15 +41,17 @@ class _QRCodePageWidgetState extends State<QRCodePageWidget> {
             text: 'Ask your friend to open smart phone camera and shoot it!',
           ),
         ),
+        Space(height: 20),
       ],
     );
   }
   Widget get _buildQRCode{
     return QrImage(
-      data: 'This is a simple QR code',
+      data: 'https://www.youtube.com/',
       version: QrVersions.auto,
-      size: 320,
+      size: 200,
       gapless: false,
+      errorCorrectionLevel: QrErrorCorrectLevel.H,
     );
   }
 }
