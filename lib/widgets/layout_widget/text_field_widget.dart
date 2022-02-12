@@ -16,7 +16,9 @@ class TextFieldWidget extends StatelessWidget {
   final double borderRadius;
   final double marginVertical;
   final bool isSuffixIcon;
+  final bool isPrefixIcon;
   final Icon suffixIcon;
+  final Icon prefixIcon;
 
   const TextFieldWidget({
     Key? key,
@@ -34,7 +36,9 @@ class TextFieldWidget extends StatelessWidget {
     this.borderRadius = 5,
     this.marginVertical = 10,
     this.isSuffixIcon = false,
+    this.isPrefixIcon = false,
     this.suffixIcon = const Icon(null),
+    this.prefixIcon = const Icon(null),
   }) : super(key: key);
 
   @override
@@ -58,6 +62,7 @@ class TextFieldWidget extends StatelessWidget {
           contentPadding: contentPadding,
           hintText: hintText,
           suffixIcon: isSuffixIcon ? suffixIcon : null,
+          prefixIcon: isPrefixIcon ? prefixIcon : null,
           hintStyle: TextStyle(
             fontSize: fontSize,
             fontWeight: fontWeight,

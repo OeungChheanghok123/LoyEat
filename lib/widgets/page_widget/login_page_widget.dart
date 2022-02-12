@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:loy_eat/screens/flash_screen/become_driver_page.dart';
-import 'package:loy_eat/screens/flash_screen/instruction_page.dart';
+import 'package:loy_eat/screens/flash_screen/verify_phone_number_page.dart';
 import 'package:loy_eat/widgets/layout_widget/button_widget.dart';
 import 'package:loy_eat/widgets/layout_widget/color.dart';
 import 'package:loy_eat/widgets/layout_widget/svg_picture_widget.dart';
@@ -39,7 +39,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                _buildButton("Log In", rabbit, const InstructionPage()),
+                _buildButton("Log In", rabbit, const VerifyPhoneNumberPage()),
                 _buildButton("Become a Driver?", carrot, const BecomeDriver()),
               ],
             ),
