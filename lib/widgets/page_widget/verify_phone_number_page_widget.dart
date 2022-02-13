@@ -24,7 +24,7 @@ class _VerifyPhoneNumberPageWidgetState extends State<VerifyPhoneNumberPageWidge
           mainAxisSize: MainAxisSize.min,
           children: [
             _buildLayout(1, Container()),
-            _buildLayout(4, _buildBody),
+            _buildLayout(5, _buildBody),
           ],
         ),
       ),
