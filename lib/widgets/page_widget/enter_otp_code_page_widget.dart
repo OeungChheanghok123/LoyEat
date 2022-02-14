@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:loy_eat/screens/flash_screen/instruction_page.dart';
 import 'package:loy_eat/widgets/layout_widget/color.dart';
 import 'package:loy_eat/widgets/layout_widget/icon_widget.dart';
 import 'package:loy_eat/widgets/layout_widget/space.dart';
@@ -17,13 +18,15 @@ class _EnterOTPCodePageWidgetState extends State<EnterOTPCodePageWidget> {
   String phoneNumber = "093 807 ***";
   late Timer _timer;
   int _start = 60;
+  late String otpNumber;
+  bool isErrorOtp = false;
 
-  TextEditingController opt1 = TextEditingController();
-  TextEditingController opt2 = TextEditingController();
-  TextEditingController opt3 = TextEditingController();
-  TextEditingController opt4 = TextEditingController();
-  TextEditingController opt5 = TextEditingController();
-  TextEditingController opt6 = TextEditingController();
+  TextEditingController otp1 = TextEditingController();
+  TextEditingController otp2 = TextEditingController();
+  TextEditingController otp3 = TextEditingController();
+  TextEditingController otp4 = TextEditingController();
+  TextEditingController otp5 = TextEditingController();
+  TextEditingController otp6 = TextEditingController();
 
   final List<TextEditingController> listController = [];
 
@@ -49,18 +52,12 @@ class _EnterOTPCodePageWidgetState extends State<EnterOTPCodePageWidget> {
   void initState() {
     super.initState();
     startTimer();
-    listController.add(opt1);
-    listController.add(opt2);
-    listController.add(opt3);
-    listController.add(opt4);
-    listController.add(opt5);
-    listController.add(opt6);
-    opt1.text = '1';
-    opt2.text = '2';
-    opt3.text = '3';
-    opt4.text = '4';
-    opt5.text = '5';
-    opt6.text = '6';
+    listController.add(otp1);
+    listController.add(otp2);
+    listController.add(otp3);
+    listController.add(otp4);
+    listController.add(otp5);
+    listController.add(otp6);
   }
 
   @override
@@ -127,11 +124,19 @@ class _EnterOTPCodePageWidgetState extends State<EnterOTPCodePageWidget> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 TextWidget(text: 'Expire in $_start seconds. ', color: silver,),
-                const TextWidget(text: 'Resend Code', color: rabbit,),
+                InkWell(
+                  onTap: (){
+                    setState(() {
+                      _timer.cancel();
+                      _start = 60;
+                      startTimer();
+                    });
+                  },
+                  child: const TextWidget(text: 'Resend Code', color: rabbit,),
+                ),
               ],
             ),
           ),
-          const Space(height: 10),
           SizedBox(
             height: 30,
             width: double.infinity,
@@ -152,21 +157,26 @@ class _EnterOTPCodePageWidgetState extends State<EnterOTPCodePageWidget> {
               ],
             ),
           ),
+          const Space(height: 10),
+          TextWidget(text: 'Verification failed. Please try again', color: isErrorOtp ? red : none, size: 10),
           Expanded(
             child: Container(
               color: white,
               width: 250,
-              margin: const EdgeInsets.only(top: 5),
               child: GridView.builder(
-                  gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                    maxCrossAxisExtent: 80,
-                    crossAxisSpacing: 25,
-                    mainAxisSpacing: 25,
-                  ),
-                  itemCount: 12,
-                  itemBuilder: (BuildContext ctx, index) {
-                    return index == 11 ? _buildDelete() : _buildNumber(index < 9 ?'${index + 1}' : index == 9 ? 'C' : '0');
-                  }),
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                  maxCrossAxisExtent: 80,
+                  crossAxisSpacing: 25,
+                  mainAxisSpacing: 25,
+                ),
+                itemCount: 12,
+                itemBuilder: (BuildContext ctx, index) {
+                  return index == 11 ? _buildDelete() :
+                    _buildNumber(index + 1, index < 9 ?'${index + 1}' : index == 9 ? 'C' : '0');
+                },
+              ),
             ),
           ),
         ],
@@ -206,7 +216,7 @@ class _EnterOTPCodePageWidgetState extends State<EnterOTPCodePageWidget> {
           readOnly: true,
           textAlign: TextAlign.center,
           keyboardType: TextInputType.number,
-          style: const TextStyle(fontSize: 14, color: rabbit),
+          style: TextStyle(fontSize: 14, color: isErrorOtp ? red : rabbit),
           maxLines: 1,
           onChanged: (value) {
             if(value.length == 1) {
@@ -217,33 +227,93 @@ class _EnterOTPCodePageWidgetState extends State<EnterOTPCodePageWidget> {
       ),
     );
   }
-  Widget _buildNumber(String number){
-    return Container(
-      decoration: BoxDecoration(
-        color: white,
-        borderRadius: BorderRadius.circular(50),
-        border: Border.all(color: text),
-      ),
-      child: Center(
-        child: TextWidget(
-          text: number,
-          size: 16,
+  Widget _buildNumber(int index, String number){
+    return InkWell(
+      onTap: (){
+        setState(() {
+          if (index == 10){
+            isErrorOtp = false;
+            otp1.text = '';
+            otp2.text = '';
+            otp3.text = '';
+            otp4.text = '';
+            otp5.text = '';
+            otp6.text = '';
+          } else {
+            if (index == 11) index = 0;
+            if (otp1.text == ''){
+              otp1.text = '$index';
+            } else if (otp1.text != '' && otp2.text == ''){
+              otp2.text = '$index';
+            } else if (otp1.text != '' && otp2.text != '' && otp3.text == ''){
+              otp3.text = '$index';
+            } else if (otp1.text != '' && otp2.text != '' && otp3.text != '' && otp4.text == ''){
+              otp4.text = '$index';
+            } else if (otp1.text != '' && otp2.text != '' && otp3.text != '' && otp4.text != '' && otp5.text == ''){
+              otp5.text = '$index';
+            } else if (otp1.text != '' && otp2.text != '' && otp3.text != '' && otp4.text != '' && otp5.text != '' && otp6.text == ''){
+              otp6.text = '$index';
+            }
+          }
+          otpNumber = (otp1.text + otp2.text + otp3.text + otp4.text + otp5.text + otp6.text).toString();
+          if (otp6.text != ''){
+            if (otpNumber == '123456'){
+              _timer.cancel();
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const InstructionPage()));
+            }
+            else {
+              isErrorOtp = true;
+            }
+          }
+        });
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          color: white,
+          borderRadius: BorderRadius.circular(50),
+          border: Border.all(color: text),
+        ),
+        child: Center(
+          child: TextWidget(
+            text: number,
+            size: 16,
+          ),
         ),
       ),
     );
   }
   Widget _buildDelete(){
-    return Container(
-      decoration: BoxDecoration(
-        color: white,
-        borderRadius: BorderRadius.circular(50),
-        border: Border.all(color: text),
-      ),
-      child: const Center(
-        child: IconWidget(
-          icon: Icons.backspace_outlined,
-          color: black,
-          size: 24,
+    return InkWell(
+      onTap: (){
+        setState(() {
+          isErrorOtp = false;
+        });
+        if (otp2.text == ''){
+          otp1.text = '';
+        } else if (otp3.text == ''){
+          otp2.text = '';
+        } else if (otp4.text == ''){
+          otp3.text = '';
+        } else if (otp5.text == ''){
+          otp4.text = '';
+        } else if (otp6.text == ''){
+          otp5.text = '';
+        } else if (otp6.text != ''){
+          otp6.text = '';
+        }
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          color: white,
+          borderRadius: BorderRadius.circular(50),
+          border: Border.all(color: text),
+        ),
+        child: const Center(
+          child: IconWidget(
+            icon: Icons.backspace_outlined,
+            color: black,
+            size: 24,
+          ),
         ),
       ),
     );

@@ -47,6 +47,7 @@ class _EditProfilePageWidgetState extends State<EditProfilePageWidget> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
+      physics: const ClampingScrollPhysics(),
       child: Container(
         margin: const EdgeInsets.fromLTRB(15, 5, 15, 15),
         child: Column(
