@@ -15,7 +15,7 @@ class _NotificationPageWidgetState extends State<NotificationPageWidget> {
     return const Center(
       child: IconWidget(
         icon: Icons.notifications_off,
-        size: 64,
+        size: 100,
         color: silver,
       ),
     );

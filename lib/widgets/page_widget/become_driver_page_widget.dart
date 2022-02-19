@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:loy_eat/models/location.dart';
-import 'package:loy_eat/screens/flash_screen/instruction_page.dart';
+import 'package:loy_eat/screens/other_screen/become_driver_screen/submit_become_driver_page.dart';
 import 'package:loy_eat/widgets/layout_widget/button_widget.dart';
 import 'package:loy_eat/widgets/layout_widget/color.dart';
 import 'package:loy_eat/widgets/layout_widget/image_icon_widget.dart';
@@ -40,7 +40,6 @@ class _BecomeDriverPageWidgetState extends State<BecomeDriverPageWidget> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Space(height: 20),
             _buildDriverName,
             _buildDriverGenderAndBirthYear,
             _buildDriverMobilePhone,
@@ -257,7 +256,7 @@ class _BecomeDriverPageWidgetState extends State<BecomeDriverPageWidget> {
       margin: const EdgeInsets.fromLTRB(25, 15, 25, 0),
       child:  ButtonWidget(
         height: 40,
-        onPressed: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const InstructionPage())),
+        onPressed: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const SubmitBecomeDriverPage())),
         borderRadius: 25,
         child: const TextWidget(
           isTitle: true,

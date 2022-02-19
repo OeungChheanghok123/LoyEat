@@ -309,13 +309,12 @@ class _RatingScorePageWidgetState extends State<RatingScorePageWidget> {
         mainAxisSize: MainAxisSize.max,
         children: [
           Expanded(
-            flex: 1,
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Expanded(
                   flex: -1,
-                  child: TextWidget(text: '$index '),
+                  child: TextWidget(text: '$index.'),
                 ),
                 Expanded(
                   child: TextWidget(text: text),
