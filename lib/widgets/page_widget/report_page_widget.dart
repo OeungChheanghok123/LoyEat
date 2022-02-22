@@ -13,6 +13,13 @@ class ReportPageWidget extends StatefulWidget {
 }
 
 class _ReportPageWidgetState extends State<ReportPageWidget> {
+
+  List<String> orderWeek = ['20 Dec - 26 Dec', '27 Dec - 2 Jan', '3 Jan - 9 Jan'];
+  List<String> orderNo = ['211220', '211220', '211221', '211223', '211224', '211226'];
+
+  bool isDelivered = true;
+  bool isCanceled = false;
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -51,14 +58,30 @@ class _ReportPageWidgetState extends State<ReportPageWidget> {
           const TextWidget(isTitle: true, text: 'Order Details'),
           Row(
             children: [
-              _buildIconAndText(Icons.cancel, black, 'Canceled', 12),
+              InkWell(
+                onTap: (){
+                  setState(() {
+                    isCanceled = true;
+                    isDelivered = false;
+                  });
+                },
+                child: _buildIconAndText(Icons.cancel, isCanceled ? carrot : black, 'Canceled', 12),
+              ),
               Container(
                 margin: const EdgeInsets.symmetric(horizontal: 3),
                 width: 1,
                 height: 15,
                 color: black,
               ),
-              _buildIconAndText(Icons.check_circle, rabbit, 'Delivered', 12),
+              InkWell(
+                onTap: (){
+                  setState(() {
+                    isDelivered = true;
+                    isCanceled = false;
+                  });
+                },
+                child: _buildIconAndText(Icons.check_circle, isDelivered ? rabbit : black, 'Delivered', 12),
+              ),
             ],
           ),
         ],
@@ -66,41 +89,61 @@ class _ReportPageWidgetState extends State<ReportPageWidget> {
     );
   }
   Widget get _buildReportBody{
-    return Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: const [
-            TextWidget(text: '20 Dec - 26 Dec', fontWeight: FontWeight.bold),
-            TextWidget(text: 'Total Earning = \$50.00'),
-          ],
-        ),
-        Container(
-          margin: const EdgeInsets.symmetric(vertical: 5),
-          width: double.infinity,
-          height: 2,
-          color: silver,
-        ),
-        Column(
+    return ListView.builder(
+      scrollDirection: Axis.vertical,
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      itemCount: orderWeek.length,
+      itemBuilder: (BuildContext context, int index){
+        return Column(
           children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                TextWidget(text: orderWeek[index], fontWeight: FontWeight.bold, color: isCanceled ? carrot : isDelivered ? black : rabbit),
+                const TextWidget(text: 'Total Earning = \$50.00'),
+              ],
+            ),
+            Container(
+              margin: const EdgeInsets.symmetric(vertical: 5),
+              width: double.infinity,
+              height: 2,
+              color: silver,
+            ),
             const Space(),
+            _buildItemOrder,
+            const Space(height: 10),
+          ],
+        );
+      },
+    );
+  }
+  Widget get _buildItemOrder{
+    return ListView.builder(
+      shrinkWrap: true,
+      scrollDirection: Axis.vertical,
+      physics: const NeverScrollableScrollPhysics(),
+      itemCount: orderNo.length,
+      itemBuilder: (BuildContext context, int index){
+        return Column(
+          children: [
             Row(
               children: [
-                const Expanded(
+                Expanded(
                   flex: 0,
-                  child: TextWidget(text: '1. '),
+                  child: TextWidget(text: '${index+1}. '),
                 ),
-                const Expanded(
+                Expanded(
                   flex: 5,
                   child: TextWidget(
-                    text: 'Order #: 123456, your earning',
+                    text: 'Order #: ${orderNo[index]}, your earning',
                   ),
                 ),
                 Expanded(
                   child: Container(
                     alignment: Alignment.center,
                     margin: const EdgeInsets.symmetric(vertical: 2, horizontal: 3),
-                    color: rabbit,
+                    color: isDelivered ? rabbit : carrot,
                     child: const TextWidget(text: '\$12.00', fontWeight: FontWeight.bold, color: white,),
                   ),
                 ),
@@ -109,25 +152,26 @@ class _ReportPageWidgetState extends State<ReportPageWidget> {
             const Space(height: 10),
             Row(
               children: [
-                const Expanded(
+                Expanded(
                   flex: 0,
-                  child: TextWidget(text: '1. ', color: none),
+                  child: TextWidget(text: '${index+1}. ', color: none),
                 ),
                 const Expanded(
                   flex: 2,
                   child: TextWidget(
-                    text: 'From Cafe Amazon (PPIU) to Sovongdy', size: 10, color: silver
+                      text: 'From Cafe Amazon (PPIU) to Sovongdy', size: 10, color: silver
                   ),
                 ),
                 Expanded(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      _buildIconAndText(Icons.directions_bike_outlined, silver, '1.2km', 9),
-                      const Space(),
-                      _buildIconAndText(Icons.watch_later, silver, '20min', 9),
-                    ],
-                  )
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        _buildIconAndText(Icons.directions_bike_outlined, silver, '1.2km', 9),
+                        const Space(),
+                        _buildIconAndText(Icons.watch_later, silver, '20min', 9),
+                        const Space(),
+                      ],
+                    )
                 ),
               ],
             ),
@@ -140,8 +184,8 @@ class _ReportPageWidgetState extends State<ReportPageWidget> {
               ),
             ),
           ],
-        ),
-      ],
+        );
+      },
     );
   }
   Widget _buildIconAndText(IconData iconData, Color color, String text, double textSize){
