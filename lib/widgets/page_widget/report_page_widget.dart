@@ -1,5 +1,6 @@
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
+import 'package:loy_eat/screens/other_screen/report_screen/report_order_detail_page.dart';
 import 'package:loy_eat/widgets/layout_widget/color.dart';
 import 'package:loy_eat/widgets/layout_widget/icon_widget.dart';
 import 'package:loy_eat/widgets/layout_widget/space.dart';
@@ -127,53 +128,60 @@ class _ReportPageWidgetState extends State<ReportPageWidget> {
       itemBuilder: (BuildContext context, int index){
         return Column(
           children: [
-            Row(
-              children: [
-                Expanded(
-                  flex: 0,
-                  child: TextWidget(text: '${index+1}. '),
-                ),
-                Expanded(
-                  flex: 5,
-                  child: TextWidget(
-                    text: 'Order #: ${orderNo[index]}, your earning',
+            InkWell(
+              onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const ReportOrderDetailPage())),
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      Expanded(
+                        flex: 0,
+                        child: TextWidget(text: '${index+1}. '),
+                      ),
+                      Expanded(
+                        flex: 5,
+                        child: TextWidget(
+                          text: 'Order #: ${orderNo[index]}, your earning',
+                        ),
+                      ),
+                      Expanded(
+                        child: Container(
+                          alignment: Alignment.center,
+                          margin: const EdgeInsets.symmetric(vertical: 2, horizontal: 3),
+                          color: isDelivered ? rabbit : carrot,
+                          child: const TextWidget(text: '\$12.00', fontWeight: FontWeight.bold, color: white,),
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-                Expanded(
-                  child: Container(
-                    alignment: Alignment.center,
-                    margin: const EdgeInsets.symmetric(vertical: 2, horizontal: 3),
-                    color: isDelivered ? rabbit : carrot,
-                    child: const TextWidget(text: '\$12.00', fontWeight: FontWeight.bold, color: white,),
+                  const Space(height: 10),
+                  Row(
+                    children: [
+                      Expanded(
+                        flex: 0,
+                        child: TextWidget(text: '${index+1}. ', color: none),
+                      ),
+                      const Expanded(
+                        flex: 2,
+                        child: TextWidget(
+                            text: 'From Cafe Amazon (PPIU) to Sovongdy', size: 10, color: silver
+                        ),
+                      ),
+                      Expanded(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              _buildIconAndText(Icons.directions_bike_outlined, silver, '1.2km', 9),
+                              const Space(),
+                              _buildIconAndText(Icons.watch_later, silver, '20min', 9),
+                              const Space(),
+                            ],
+                          )
+                      ),
+                    ],
                   ),
-                ),
-              ],
-            ),
-            const Space(height: 10),
-            Row(
-              children: [
-                Expanded(
-                  flex: 0,
-                  child: TextWidget(text: '${index+1}. ', color: none),
-                ),
-                const Expanded(
-                  flex: 2,
-                  child: TextWidget(
-                      text: 'From Cafe Amazon (PPIU) to Sovongdy', size: 10, color: silver
-                  ),
-                ),
-                Expanded(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        _buildIconAndText(Icons.directions_bike_outlined, silver, '1.2km', 9),
-                        const Space(),
-                        _buildIconAndText(Icons.watch_later, silver, '20min', 9),
-                        const Space(),
-                      ],
-                    )
-                ),
-              ],
+                ],
+              ),
             ),
             Container(
               margin: const EdgeInsets.symmetric(vertical: 15),
