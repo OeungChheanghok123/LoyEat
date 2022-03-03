@@ -6,6 +6,7 @@ class TextWidget extends StatelessWidget {
   final TextAlign textAlign;
   final double size;
   final FontWeight fontWeight;
+  final FontStyle fontStyle;
   final Color color;
   final bool isTitle;
 
@@ -15,6 +16,7 @@ class TextWidget extends StatelessWidget {
     this.textAlign = TextAlign.start,
     this.size = 12,
     this.fontWeight = FontWeight.normal,
+    this.fontStyle = FontStyle.normal,
     this.color = black,
     this.isTitle = false,
   }) : super(key: key);
@@ -30,6 +32,7 @@ class TextWidget extends StatelessWidget {
       fontSize: size,
       fontWeight: fontWeight,
       color: color,
+      fontStyle: fontStyle,
     ),
   );
 }
