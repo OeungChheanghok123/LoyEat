@@ -1,5 +1,6 @@
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
+import 'package:loy_eat/widgets/layout_widget/button_widget.dart';
 import 'package:loy_eat/widgets/layout_widget/color.dart';
 import 'package:loy_eat/widgets/layout_widget/icon_widget.dart';
 import 'package:loy_eat/widgets/layout_widget/space.dart';
@@ -14,6 +15,10 @@ class ReportOrderDetailPageWidget extends StatefulWidget {
 }
 
 class _ReportOrderDetailPageWidgetState extends State<ReportOrderDetailPageWidget> {
+
+  List<String> productItems = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K'];
+  int orderItemCount = 5;
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -138,53 +143,162 @@ class _ReportOrderDetailPageWidgetState extends State<ReportOrderDetailPageWidge
         const TextFieldWidget(inputType: TextInputType.text, height: 40),
         const TextWidget(text: "Items:", color: rabbit, fontWeight: FontWeight.bold,),
         Container(
+          margin: const EdgeInsets.only(top: 10),
+          child: orderItems,
+        ),
+        Container(
+          width: double.infinity,
+          height: 2,
+          color: silver,
+          margin: const EdgeInsets.symmetric(vertical: 5),
+        ),
+        Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: const [
+                TextWidget(text: 'Subtotal'),
+                TextWidget(text: '\$15.00'),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: const [
+                TextWidget(text: 'Discount'),
+                TextWidget(text: '\$0.00'),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: const [
+                TextWidget(text: 'VAT'),
+                TextWidget(text: '\$0.00'),
+              ],
+            ),
+            Container(
+              margin: const EdgeInsets.symmetric(vertical: 5),
+              child: const DottedLine(
+                dashLength: 2,
+                lineThickness: 2,
+                dashColor: silver,
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: const [
+                TextWidget(text: 'Net delivery fee',  fontWeight: FontWeight.bold,),
+                TextWidget(text: '\$4.00', fontWeight: FontWeight.bold,),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: const [
+                TextWidget(text: 'Tip',  fontWeight: FontWeight.bold,),
+                TextWidget(text: '\$1.00', fontWeight: FontWeight.bold,),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: const [
+                TextWidget(text: 'Bonus',  fontWeight: FontWeight.bold,),
+                TextWidget(text: '\$0.00', fontWeight: FontWeight.bold,),
+              ],
+            ),
+            Container(
+              width: double.infinity,
+              height: 2,
+              color: silver,
+              margin: const EdgeInsets.symmetric(vertical: 5),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: const [
+                TextWidget(text: 'Total'),
+                TextWidget(text: '\$20.00'),
+              ],
+            ),
+          ],
+        ),
+        Container(
           margin: const EdgeInsets.symmetric(vertical: 10),
-          child: Column(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Expanded(
-                          flex: 0,
-                          child: TextWidget(text: '1. ',)
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
-                          Expanded(
-                              flex: 0,
-                              child: TextWidget(text: 'Product A',)
-                          ),
-                          Space(height: 3),
-                          Expanded(
-                            flex: 0,
-                            child: TextWidget(text: "1 x \$3.00", size: 10, color: silver, fontStyle: FontStyle.italic,),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  const TextWidget(text: '\$3.00'),
-                ],
-              ),
-              const Space(),
+              const TextWidget(text: 'Your Earning', fontWeight: FontWeight.bold,),
               Container(
-                margin: const EdgeInsets.symmetric(vertical: 5),
-                child: const DottedLine(
-                  dashLength: 2,
-                  lineThickness: 2,
-                  dashColor: silver,
-                ),
+                color: rabbit,
+                padding: const EdgeInsets.symmetric(horizontal: 3),
+                child: const TextWidget(text: '\$5.00', color: white, fontWeight: FontWeight.bold,),
               ),
-
             ],
-          )
+          ),
+        ),
+        const Space(height: 10,),
+        ButtonWidget(
+          onPressed: (){
+            print('button is clicked'); // ignore: avoid_print
+          },
+          width: double.infinity,
+          height: 45,
+          child: const TextWidget(text: 'Delivered successfully to Sovongdy', color: white, size: 14, fontWeight: FontWeight.w500,),
         ),
       ],
+    );
+  }
+
+  Widget get orderItems{
+    return ListView.builder(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      itemCount: orderItemCount,
+      itemBuilder: (BuildContext context, int index){
+        return Container(
+            margin: const EdgeInsets.only(bottom: 10),
+            child: Column(
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                            flex: 0,
+                            child: TextWidget(text: '${index+1}. ',)
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Expanded(
+                                flex: 0,
+                                child: TextWidget(text: 'Product ${productItems[index]}',)
+                            ),
+                            const Space(height: 3),
+                            const Expanded(
+                              flex: 0,
+                              child: TextWidget(text: "1 x \$3.00", size: 10, color: silver, fontStyle: FontStyle.italic,),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    const TextWidget(text: '\$3.00'),
+                  ],
+                ),
+                const Space(),
+                index + 1 == orderItemCount ? Container() : Container(
+                  margin: const EdgeInsets.symmetric(vertical: 5),
+                  child: const DottedLine(
+                    dashLength: 2,
+                    lineThickness: 2,
+                    dashColor: silver,
+                  ),
+                ),
+              ],
+            )
+        );
+      },
     );
   }
 }
