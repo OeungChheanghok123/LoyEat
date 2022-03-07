@@ -17,7 +17,7 @@ class ReportOrderDetailPageWidget extends StatefulWidget {
 class _ReportOrderDetailPageWidgetState extends State<ReportOrderDetailPageWidget> {
 
   List<String> productItems = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K'];
-  int orderItemCount = 5;
+  int orderItemCount = 3;
 
   @override
   Widget build(BuildContext context) {
@@ -28,10 +28,7 @@ class _ReportOrderDetailPageWidgetState extends State<ReportOrderDetailPageWidge
         mainAxisSize: MainAxisSize.min,
         children: [
           _buildProfileCustomer,
-          Container(
-            margin: const EdgeInsets.fromLTRB(20, 10, 20, 15),
-            child: _buildOrderDetailItem,
-          ),
+          _buildOrderDetailItems,
         ],
       ),
     );
@@ -118,187 +115,157 @@ class _ReportOrderDetailPageWidgetState extends State<ReportOrderDetailPageWidge
       ),
     );
   }
-  Widget get _buildOrderDetailItem{
+  Widget get _buildOrderDetailItems{
+    return Container(
+      margin: const EdgeInsets.fromLTRB(20, 10, 20, 15),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          textAndPriceWithColor('$orderItemCount items - Collect money (exclude tip)', '19.00', FontWeight.normal),
+          horizontalLine,
+          buildTitle('Remarks:', text, FontWeight.normal),
+          buildTextField(TextInputType.text, 40),
+          buildTitle('Items:', rabbit, FontWeight.bold),
+          orderItems,
+          horizontalLine,
+          detailReport,
+          textAndPriceWithColor('Your Earning ', '5.00', FontWeight.bold),
+          buttonStatus('Delivered successfully to Sovongdy', rabbit),
+        ],
+      ),
+    );
+  }
+  Widget get orderItems{
+    return Container(
+      margin: const EdgeInsets.only(top: 10),
+      child: ListView.builder(
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        itemCount: orderItemCount,
+        itemBuilder: (BuildContext context, int index){
+          return Container(
+              margin: const EdgeInsets.only(bottom: 10),
+              child: Column(
+                children: [
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(
+                              flex: 0,
+                              child: TextWidget(text: '${index+1}. ',)
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Expanded(
+                                  flex: 0,
+                                  child: TextWidget(text: 'Product ${productItems[index]}',)
+                              ),
+                              const Space(height: 3),
+                              const Expanded(
+                                flex: 0,
+                                child: TextWidget(text: "1 x \$3.00", size: 10, color: silver, fontStyle: FontStyle.italic,),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                      const TextWidget(text: '\$3.00'),
+                    ],
+                  ),
+                  space(5),
+                  index + 1 == orderItemCount ? Container() : horizontalDottedLine,
+                ],
+              )
+          );
+        },
+      ),
+    );
+  }
+  Widget get detailReport{
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            const TextWidget(text: '5 items - Collect money (exclude tip)'),
-            Container(
-              color: rabbit,
-              padding: const EdgeInsets.symmetric(horizontal: 2),
-              child: const TextWidget(text: '\$19.00', color: white,),
-            ),
-          ],
-        ),
-        Container(
-          width: double.infinity,
-          height: 2,
-          color: silver,
-          margin: const EdgeInsets.symmetric(vertical: 10),
-        ),
-        const TextWidget(text: "Remarks:", color: text,),
-        const TextFieldWidget(inputType: TextInputType.text, height: 40),
-        const TextWidget(text: "Items:", color: rabbit, fontWeight: FontWeight.bold,),
-        Container(
-          margin: const EdgeInsets.only(top: 10),
-          child: orderItems,
-        ),
-        Container(
-          width: double.infinity,
-          height: 2,
-          color: silver,
-          margin: const EdgeInsets.symmetric(vertical: 5),
-        ),
-        Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
-                TextWidget(text: 'Subtotal'),
-                TextWidget(text: '\$15.00'),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
-                TextWidget(text: 'Discount'),
-                TextWidget(text: '\$0.00'),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
-                TextWidget(text: 'VAT'),
-                TextWidget(text: '\$0.00'),
-              ],
-            ),
-            Container(
-              margin: const EdgeInsets.symmetric(vertical: 5),
-              child: const DottedLine(
-                dashLength: 2,
-                lineThickness: 2,
-                dashColor: silver,
-              ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
-                TextWidget(text: 'Net delivery fee',  fontWeight: FontWeight.bold,),
-                TextWidget(text: '\$4.00', fontWeight: FontWeight.bold,),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
-                TextWidget(text: 'Tip',  fontWeight: FontWeight.bold,),
-                TextWidget(text: '\$1.00', fontWeight: FontWeight.bold,),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
-                TextWidget(text: 'Bonus',  fontWeight: FontWeight.bold,),
-                TextWidget(text: '\$0.00', fontWeight: FontWeight.bold,),
-              ],
-            ),
-            Container(
-              width: double.infinity,
-              height: 2,
-              color: silver,
-              margin: const EdgeInsets.symmetric(vertical: 5),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
-                TextWidget(text: 'Total'),
-                TextWidget(text: '\$20.00'),
-              ],
-            ),
-          ],
-        ),
-        Container(
-          margin: const EdgeInsets.symmetric(vertical: 10),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const TextWidget(text: 'Your Earning', fontWeight: FontWeight.bold,),
-              Container(
-                color: rabbit,
-                padding: const EdgeInsets.symmetric(horizontal: 3),
-                child: const TextWidget(text: '\$5.00', color: white, fontWeight: FontWeight.bold,),
-              ),
-            ],
-          ),
-        ),
-        const Space(height: 10,),
-        ButtonWidget(
-          onPressed: (){
-            print('button is clicked'); // ignore: avoid_print
-          },
-          width: double.infinity,
-          height: 45,
-          child: const TextWidget(text: 'Delivered successfully to Sovongdy', color: white, size: 14, fontWeight: FontWeight.w500,),
-        ),
+        textAndPrice('Subtotal', '15.00', FontWeight.normal),
+        textAndPrice('Discount', '0.00', FontWeight.normal),
+        textAndPrice('VAT', '0.00', FontWeight.normal),
+        horizontalDottedLine,
+        textAndPrice('Net delivery fee', '4.00', FontWeight.bold),
+        textAndPrice('Tip', '1.00', FontWeight.bold),
+        textAndPrice('Bonus', '0.00', FontWeight.bold),
+        horizontalLine,
+        textAndPrice('Total', '20.00', FontWeight.normal),
+        space(10),
       ],
     );
   }
+  Widget get horizontalLine{
+    return Container(
+      width: double.infinity,
+      height: 2,
+      color: silver,
+      margin: const EdgeInsets.symmetric(vertical: 5),
+    );
+  }
+  Widget get horizontalDottedLine{
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 5),
+      child: const DottedLine(
+        dashLength: 2,
+        lineThickness: 2,
+        dashColor: silver,
+      ),
+    );
+  }
 
-  Widget get orderItems{
-    return ListView.builder(
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      itemCount: orderItemCount,
-      itemBuilder: (BuildContext context, int index){
-        return Container(
-            margin: const EdgeInsets.only(bottom: 10),
-            child: Column(
-              children: [
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Expanded(
-                            flex: 0,
-                            child: TextWidget(text: '${index+1}. ',)
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Expanded(
-                                flex: 0,
-                                child: TextWidget(text: 'Product ${productItems[index]}',)
-                            ),
-                            const Space(height: 3),
-                            const Expanded(
-                              flex: 0,
-                              child: TextWidget(text: "1 x \$3.00", size: 10, color: silver, fontStyle: FontStyle.italic,),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    const TextWidget(text: '\$3.00'),
-                  ],
-                ),
-                const Space(),
-                index + 1 == orderItemCount ? Container() : Container(
-                  margin: const EdgeInsets.symmetric(vertical: 5),
-                  child: const DottedLine(
-                    dashLength: 2,
-                    lineThickness: 2,
-                    dashColor: silver,
-                  ),
-                ),
-              ],
-            )
-        );
-      },
+  Widget space(double size){
+    return Space(height: size);
+  }
+  Widget textAndPriceWithColor(String text, String price, FontWeight fontWeight){
+    return Container(
+      margin: const EdgeInsets.only(bottom: 5),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          TextWidget(text: text, fontWeight: fontWeight),
+          Container(
+            color: rabbit,
+            padding: const EdgeInsets.symmetric(horizontal: 2),
+            child: TextWidget(text: '\$$price', color: white, fontWeight: fontWeight),
+          ),
+        ],
+      ),
+    );
+  }
+  Widget textAndPrice(String text, String price, FontWeight fontWeight){
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        TextWidget(text: text, fontWeight: fontWeight,),
+        TextWidget(text: '\$$price', fontWeight: fontWeight,),
+      ],
+    );
+  }
+  Widget buildTitle(String title, Color color, FontWeight fontWeight){
+    return TextWidget(text: title, color: color, fontWeight: fontWeight);
+  }
+  Widget buildTextField(TextInputType textInputType, double height){
+    return TextFieldWidget(inputType: textInputType, height: height);
+  }
+  Widget buttonStatus(String text, Color color){
+    return Container(
+      margin: const EdgeInsets.only(top: 10),
+      child: ButtonWidget(
+        onPressed: () => print('button is clicked'), // ignore: avoid_print
+        width: double.infinity,
+        height: 45,
+        color: color,
+        child: TextWidget(text: text, color: white, size: 14, fontWeight: FontWeight.w500,),
+      ),
     );
   }
 }
