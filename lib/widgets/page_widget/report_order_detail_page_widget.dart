@@ -1,6 +1,5 @@
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
-import 'package:loy_eat/widgets/layout_widget/button_widget.dart';
 import 'package:loy_eat/widgets/layout_widget/color.dart';
 import 'package:loy_eat/widgets/layout_widget/icon_widget.dart';
 import 'package:loy_eat/widgets/layout_widget/space.dart';
@@ -258,14 +257,16 @@ class _ReportOrderDetailPageWidgetState extends State<ReportOrderDetailPageWidge
   }
   Widget buttonStatus(String text, Color color){
     return Container(
-      margin: const EdgeInsets.only(top: 10),
-      child: ButtonWidget(
-        onPressed: () => print('button is clicked'), // ignore: avoid_print
-        width: double.infinity,
-        height: 45,
-        color: color,
-        child: TextWidget(text: text, color: white, size: 14, fontWeight: FontWeight.w500,),
+      margin: const EdgeInsets.only(top: 15),
+      height: 40,
+      width: double.infinity,
+      decoration: BoxDecoration(
+        color: rabbit,
+        borderRadius: BorderRadius.circular(10),
       ),
+      child: const Center(
+        child: TextWidget(text: 'Delivered successfully to Sovongdy', color: white, fontWeight: FontWeight.w700,),
+      )
     );
   }
 }
