@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:loy_eat/screens/other_screen/home_screen/notification_page.dart';
-import 'package:loy_eat/screens/other_screen/order_screen/order_cancel_by_customer.dart';
+import 'package:loy_eat/screens/other_screen/order_screen/rating_to_customer.dart';
 import 'package:loy_eat/widgets/layout_widget/color.dart';
 import 'package:loy_eat/widgets/layout_widget/icon_widget.dart';
 import 'package:loy_eat/widgets/layout_widget/text_widget.dart';
@@ -25,7 +25,7 @@ class _OrderPageState extends State<OrderPage> {
         extendBody: true,
         backgroundColor: white,
         appBar: _buildAppBar(),
-        body: const OrderCancelByCustomer(),
+        body: const RatingToCustomer(),
       ),
     );
   }

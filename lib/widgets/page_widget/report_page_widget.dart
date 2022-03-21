@@ -129,7 +129,7 @@ class _ReportPageWidgetState extends State<ReportPageWidget> {
         return Column(
           children: [
             InkWell(
-              onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const ReportOrderDetailPage())),
+              onTap: () => Navigator.of(context).push(MaterialPageRoute(fullscreenDialog: true, builder: (context) => const ReportOrderDetailPage())),
               child: Column(
                 children: [
                   Row(
