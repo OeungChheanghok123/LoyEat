@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:loy_eat/screens/other_screen/order_screen/order_empty.dart';
 import 'package:loy_eat/widgets/layout_widget/button_widget.dart';
 import 'package:loy_eat/widgets/layout_widget/color.dart';
 import 'package:loy_eat/widgets/layout_widget/icon_widget.dart';
@@ -6,8 +9,40 @@ import 'package:loy_eat/widgets/layout_widget/space.dart';
 import 'package:loy_eat/widgets/layout_widget/text_field_widget.dart';
 import 'package:loy_eat/widgets/layout_widget/text_widget.dart';
 
-class RatingToCustomer extends StatelessWidget {
+class RatingToCustomer extends StatefulWidget {
   const RatingToCustomer({Key? key}) : super(key: key);
+
+  @override
+  State<RatingToCustomer> createState() => _RatingToCustomerState();
+}
+
+class _RatingToCustomerState extends State<RatingToCustomer> {
+  bool isClose = true;
+  late Timer _timer;
+  int _start = 3;
+
+  void startTimer() {
+    const oneSec = Duration(seconds: 1);
+    _timer = Timer.periodic(oneSec, (Timer timer) {
+        if (_start == 0) {
+          setState(() {
+            timer.cancel();
+            Navigator.of(context).push(MaterialPageRoute(builder: (context) => const OrderEmpty()));
+          });
+        } else {
+          setState(() {
+            _start--;
+          });
+        }
+      },
+    );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _timer.cancel();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +62,7 @@ class RatingToCustomer extends StatelessWidget {
           const Space(height: 20),
           Stack(
             children: [
-              SizedBox(
+              isClose == true ? SizedBox(
                 width: 330,
                 height: 250,
                 child: Padding(
@@ -90,11 +125,17 @@ class RatingToCustomer extends StatelessWidget {
                     )
                   ),
                 ),
-              ),
+              ) : const SizedBox(),
               Positioned(
                 right: 0,
                 top: 0,
-                child: _buildIconBackColor(30, red, Icons.close, 24),
+                child: InkWell(
+                  onTap: () => setState(() {
+                    isClose = false;
+                    startTimer();
+                  }),
+                  child: _buildIconBackColor(30, red, Icons.close, 24),
+                ),
               ),
             ],
           ),
