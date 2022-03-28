@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:loy_eat/screens/other_screen/order_screen/order_empty.dart';
+import 'package:loy_eat/screens/flash_screen/instruction_page.dart';
 import 'package:loy_eat/widgets/layout_widget/button_widget.dart';
 import 'package:loy_eat/widgets/layout_widget/color.dart';
 import 'package:loy_eat/widgets/layout_widget/icon_widget.dart';
@@ -27,7 +27,7 @@ class _RatingToCustomerState extends State<RatingToCustomer> {
         if (_start == 0) {
           setState(() {
             timer.cancel();
-            Navigator.of(context).push(MaterialPageRoute(builder: (context) => const OrderEmpty()));
+            Navigator.of(context).push(MaterialPageRoute(builder: (context) => const InstructionPage()));
           });
         } else {
           setState(() {
